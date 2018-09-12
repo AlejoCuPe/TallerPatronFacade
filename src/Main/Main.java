@@ -10,6 +10,8 @@ package Main;
  * @author alejo
  */
 public class Main {
-    
+    public static void main(String[] args){
+        
+    }
     
 }
