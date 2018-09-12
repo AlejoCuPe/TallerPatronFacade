@@ -68,6 +68,11 @@ public class PrincipalConductor extends javax.swing.JFrame {
         EliminarRuta.setText("Eliminar Ruta");
 
         CerrarSesion.setText("Cerrar Sesion");
+        CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarSesionActionPerformed(evt);
+            }
+        });
 
         CrearCalle.setText("Crear Calle");
         CrearCalle.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +162,12 @@ public class PrincipalConductor extends javax.swing.JFrame {
     private void ModificarCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarCalleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModificarCalleActionPerformed
+
+    private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
+        this.setVisible(false);
+        Inicial i =new Inicial();
+        i.setVisible(true);
+    }//GEN-LAST:event_CerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments

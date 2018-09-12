@@ -5,6 +5,9 @@
  */
 package Visual;
 
+import Facade.Fachada;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Andrés
@@ -115,7 +118,13 @@ public class Inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if(Correo.getText().equals("")||Contraseña.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese su correo y contraseña");
+        }
+        else{
+            Fachada f = new Fachada();
+            f.iniciarSesion(Correo.getText(), Contraseña.getText());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

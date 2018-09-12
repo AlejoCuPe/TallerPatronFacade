@@ -154,7 +154,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         else{
             Fachada f = new Fachada();
             f.crearUsuario(TipoUsuario.getSelectedItem().toString(), Correo.getText(), Contraseña.getText());
-            JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
+            
             this.setVisible(false);
             if(TipoUsuario.getSelectedItem().toString().contains("Conductor")){
                 PrincipalConductor pc = new PrincipalConductor();

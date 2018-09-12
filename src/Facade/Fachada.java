@@ -16,6 +16,7 @@ import Clases.Usuario;
 import Interfaces.Componente;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,9 +24,9 @@ import java.util.Date;
  */
 public class Fachada {
     
-    private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-    private ArrayList<Ruta> rutas = new ArrayList<Ruta>();
-    private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
+    private ArrayList<Ruta> rutas = new ArrayList<>();
+    private ArrayList<Reserva> reservas = new ArrayList<>();
     
     
     public Fachada(){
@@ -159,30 +160,41 @@ public class Fachada {
                 Usuario pasajero = new Pasajero();
                 pasajero.adicionar(correo, password);
                 usuarios.add(pasajero);
+                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 break;
             case "Conductor":
                 Usuario conductor = new Conductor();
                 conductor.adicionar(correo, password);
+                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 usuarios.add(conductor);
+                break;
             case "Administrador":
                 Administrador a = new Administrador();
                 Usuario u = new AdministradorAdapter(a);
+                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 u.adicionar(correo, password);
                 usuarios.add(u);
+                break;
             default:
                 break;
             
         }
     }
     
-    public Usuario iniciarSesion(String correo, String password){
+    public void iniciarSesion(String correo, String password){
         Usuario b = null;
-        for(Usuario u : usuarios){
-            if(u.getCorreo().equals(correo) && u.getPassword().equals(password)){
-               b = u; 
+        int i=0;
+        System.out.println(usuarios.size());
+        for(i=0; i<usuarios.size(); i++){
+            if(usuarios.get(i).getCorreo().equals(correo)){
+                if(usuarios.get(i).getPassword().equals(password)){
+                    i=1;
+                }
             }
         }
-        return b;
+        if(i==0){
+            JOptionPane.showMessageDialog(null, "Credenciales Incorrectas");
+        }
     }
     
 }
