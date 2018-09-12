@@ -49,7 +49,7 @@ public class Inicial extends javax.swing.JFrame {
         jLabel1.setText("Correo");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Constraseña");
+        jLabel2.setText("Contraseña");
 
         jButton1.setText("Iniciar Sesión");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -5,13 +5,16 @@
  */
 package Main;
 
+import Visual.Inicial;
+
 /**
  *
  * @author alejo
  */
 public class Main {
     public static void main(String[] args){
-        
+        Inicial i = new Inicial();
+        i.setVisible(true);
     }
     
 }
