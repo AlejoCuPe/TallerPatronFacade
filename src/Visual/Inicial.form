@@ -124,6 +124,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xbf;No tienes cuenta? Haz click aqu&#xed; para registarte"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

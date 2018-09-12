@@ -5,6 +5,8 @@
  */
 package Facade;
 
+import Clases.Administrador;
+import Clases.AdministradorAdapter;
 import Clases.Calle;
 import Clases.Conductor;
 import Clases.Pasajero;
@@ -162,6 +164,11 @@ public class Fachada {
                 Usuario conductor = new Conductor();
                 conductor.adicionar(correo, password);
                 usuarios.add(conductor);
+            case "Administrador":
+                Administrador a = new Administrador();
+                Usuario u = new AdministradorAdapter(a);
+                u.adicionar(correo, password);
+                usuarios.add(u);
             default:
                 break;
             

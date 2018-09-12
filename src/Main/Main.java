@@ -15,6 +15,5 @@ public class Main {
     public static void main(String[] args){
         Inicial i = new Inicial();
         i.setVisible(true);
-    }
-    
+    }    
 }

@@ -6,6 +6,14 @@
 
 package Visual;
 
+import Clases.Administrador;
+import Clases.AdministradorAdapter;
+import Clases.Conductor;
+import Clases.Pasajero;
+import Clases.Usuario;
+import Facade.Fachada;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Andrés
@@ -140,7 +148,23 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_ContraseñaActionPerformed
 
     private void RegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroActionPerformed
-        // TODO add your handling code here:
+        if(Contraseña.getText().equals("") || Correo.getText().equals("") || Confirmar.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese los valores correctamente");
+        }
+        else{
+            Fachada f = new Fachada();
+            f.crearUsuario(TipoUsuario.getSelectedItem().toString(), Correo.getText(), Contraseña.getText());
+            JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
+            this.setVisible(false);
+            if(TipoUsuario.getSelectedItem().toString().contains("Conductor")){
+                PrincipalConductor pc = new PrincipalConductor();
+                pc.setVisible(true);
+            }
+            if(TipoUsuario.getSelectedItem().toString().contains("Pasajero")){
+                PrincipalPasajero pp = new PrincipalPasajero();
+                pp.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_RegistroActionPerformed
 
     /**
@@ -159,5 +183,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
 
 }
