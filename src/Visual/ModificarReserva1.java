@@ -9,12 +9,12 @@ package Visual;
  *
  * @author Andrés
  */
-public class EliminarCalle extends javax.swing.JFrame {
+public class ModificarReserva1 extends javax.swing.JFrame {
 
     /**
      * Creates new form EliminarCalle
      */
-    public EliminarCalle() {
+    public ModificarReserva1() {
         initComponents();
     }
 
@@ -29,7 +29,7 @@ public class EliminarCalle extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        MostrarCalles = new javax.swing.JTextArea();
+        MostrarReservas = new javax.swing.JTextArea();
         Eliminar = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         Confirmar = new javax.swing.JButton();
@@ -38,11 +38,11 @@ public class EliminarCalle extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Eliminación de Calle");
+        jLabel1.setText("Modificación de Reserva");
 
-        MostrarCalles.setColumns(20);
-        MostrarCalles.setRows(5);
-        jScrollPane1.setViewportView(MostrarCalles);
+        MostrarReservas.setColumns(20);
+        MostrarReservas.setRows(5);
+        jScrollPane1.setViewportView(MostrarReservas);
 
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,9 +51,9 @@ public class EliminarCalle extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Escriba aquí el número de la calle que desea eliminar");
+        jLabel5.setText("Escriba aquí el número de la reserva que desea modificar");
 
-        Confirmar.setText("Eliminar Calle");
+        Confirmar.setText("Modificar Reserva");
         Confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConfirmarActionPerformed(evt);
@@ -75,7 +75,7 @@ public class EliminarCalle extends javax.swing.JFrame {
                     .addComponent(Eliminar))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
+                .addGap(139, 139, 139)
                 .addComponent(Confirmar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -109,11 +109,49 @@ public class EliminarCalle extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ModificarReserva1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ModificarReserva1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ModificarReserva1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ModificarReserva1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ModificarReserva1().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Confirmar;
     private javax.swing.JTextField Eliminar;
-    private javax.swing.JTextArea MostrarCalles;
+    private javax.swing.JTextArea MostrarReservas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
