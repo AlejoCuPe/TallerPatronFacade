@@ -33,10 +33,8 @@ public class Pasajero extends Usuario{
     public void setPassword(String password) {
         this.passwordPasajero = password;
     }
-
-   
-    @Override
-    public void adicionar(String correo, String password) {
+    
+    public void adicionar(int id, String correo, String password) {
         this.setCorreo(correo);
         this.setPassword(password);
     }

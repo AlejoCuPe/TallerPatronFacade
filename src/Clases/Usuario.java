@@ -10,11 +10,11 @@ package Clases;
  * @author alejo
  */
 abstract public class Usuario {
-    
+    protected int id;
     protected String correo;
     protected String password;
     
-    public abstract void adicionar(String correo, String password);
+    public abstract void adicionar(int id, String correo, String password);
     public abstract String consultar(String correo);
     public abstract void modificar(String correo, String password);
 
@@ -33,5 +33,13 @@ abstract public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }  
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

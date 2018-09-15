@@ -151,20 +151,18 @@ public class Fachada {
         r.getComponentes().remove(i);
     }
     
-    
-    
     //Metodos Usuario    
     public void crearUsuario(String tipoUsuario, String correo, String password){
         switch(tipoUsuario){
             case "Pasajero":
                 Usuario pasajero = new Pasajero();
-                pasajero.adicionar(correo, password);
+                pasajero.adicionar(usuarios.size()+1,correo, password);
                 usuarios.add(pasajero);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 break;
             case "Conductor":
                 Usuario conductor = new Conductor();
-                conductor.adicionar(correo, password);
+                conductor.adicionar(usuarios.size()+1, correo, password);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 usuarios.add(conductor);
                 break;
@@ -172,7 +170,7 @@ public class Fachada {
                 Administrador a = new Administrador();
                 Usuario u = new AdministradorAdapter(a);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                u.adicionar(correo, password);
+                u.adicionar(usuarios.size()+1, correo, password);
                 usuarios.add(u);
                 break;
             default:

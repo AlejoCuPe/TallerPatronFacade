@@ -18,7 +18,7 @@ public class AdministradorAdapter extends Usuario{
     }
 
     @Override
-    public void adicionar(String correo, String password) {
+    public void adicionar(int id, String correo, String password) {
         this.admin.crear(correo, password);
     }
 
