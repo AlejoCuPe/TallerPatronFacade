@@ -8,6 +8,7 @@ package Clases;
 import Interfaces.Componente;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +17,19 @@ import java.util.Date;
 public class Ruta implements Componente{
     
     private int id;
+    private String origen;
+    private String destino;
     private String hora;
-    private ArrayList<Componente> componentes;
+    private ArrayList<Calle> componentes = new ArrayList<>();
     private Date fecha;
     private int cupos;
     private int tarifa;
-    private Conductor creador;
+    private Usuario creador;
 
-    public Ruta(int id, String hora, Date fecha, int cupos, int tarifa, Conductor creador) {
+    public Ruta(int id, String origen, String destino, String hora, Date fecha, int cupos, int tarifa, Usuario creador) {
         this.id = id;
+        this.destino = destino;
+        this.origen = origen;
         this.hora = hora;
         this.fecha = fecha;
         this.cupos = cupos;
@@ -36,6 +41,24 @@ public class Ruta implements Componente{
         this.hora = hora;
     }
 
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+    
+    
+    
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -64,7 +87,7 @@ public class Ruta implements Componente{
         return tarifa;
     }
 
-    public Conductor getCreador() {
+    public Usuario getCreador() {
         return creador;
     }
 
@@ -80,23 +103,23 @@ public class Ruta implements Componente{
         this.id = id;
     }
     
-    public void add(Componente c){
-        getComponentes().add(c);
+    public void add(Calle c){
+        componentes.add(c);
     }
     
-    public ArrayList<Componente> getComponentes(){
+    public ArrayList<Calle> getComponentes(){
         return componentes;
     }
     
-    public void setComponentes(ArrayList<Componente> componentes){
+    public void setComponentes(ArrayList<Calle> componentes){
         this.componentes = componentes;
     }
     
     @Override
     public String toString() {
-        String texto = "Ruta" + "hora=" + hora + ", fecha=" + fecha + ", cupos=" + cupos + ", tarifa=" + tarifa;
+        String texto = " Ruta " + (id) + " hora = " + hora + ", fecha = " + fecha + ", cupos = " + cupos + ", tarifa = " + tarifa;
         String texto2 = "\n";
-        String texto3 = "";
+        String texto3 = " ";
         for(Componente c : getComponentes()){
             texto3 += c.toString() + "\n";
         }

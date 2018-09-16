@@ -16,6 +16,7 @@ import Clases.Usuario;
 import Interfaces.Componente;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,24 +35,37 @@ public class Fachada {
     }
     
     //CRUD Ruta   
-    public void crearRuta(String hora, String origen, String destino, Date fecha, int cupos, int tarifa, Conductor conductor){
+    public void crearRuta(String hora, String origen, String destino, Date fecha, int cupos, int tarifa, Usuario conductor){
         int id = rutas.size();
-        Ruta ruta = new Ruta(id, hora, fecha, cupos, tarifa, conductor);
+        Ruta ruta = new Ruta(id, origen, destino, hora, fecha, cupos, tarifa, conductor);
         rutas.add(ruta);
     }
     
     public String mostrarRuta(String nombreDestino, Date fecha, String hora){
         Ruta buscada = null;
         for(Ruta r : rutas){
-            for(int i=0; i<r.getComponentes().size(); i++){
-                if(r.getComponentes().get(i).devolver().getNombre().equals(nombreDestino)){
-                    if(r.getFecha() == fecha && r.getHora().equals(hora)){
-                        buscada = r;
-                    }
+            if(r.getDestino().equals(nombreDestino)){
+                if(r.getFecha() == fecha && r.getHora().equals(hora)){
+                    buscada = r;
                 }
             }
         }
-        return buscada.toString();
+        
+        if(buscada == null){
+            return "No se ha encontrado la ruta";
+        }
+        else{
+            return buscada.toString();
+        }
+        
+    }
+    
+    public String mostrarRutas(){
+        String texto = "Rutas \n";
+        for(Ruta r : rutas){                
+            texto = texto + r.toString() + "\n ";
+        }
+        return texto;
     }
     
     public void modificarRuta(int id, String hora, Date fecha, int cupos, int tarifa){
@@ -66,9 +80,11 @@ public class Fachada {
     }
     
     public void eliminarRuta(int id){
-        for(Ruta r : rutas){
+        Iterator<Ruta> iter = rutas.iterator();
+        while (iter.hasNext()){
+            Ruta r = iter.next();
             if(r.getId() == id){
-                rutas.remove(r);
+                iter.remove();
             }
         }
     }
@@ -129,44 +145,54 @@ public class Fachada {
         }
     }
 
-    public String mostrarCalle(Ruta r, int i) {
-        ArrayList<Componente> componentes = r.getComponentes();
-        String c = componentes.get(i).toString();
-        return c;
+    public String mostrarCalle(Ruta r) {
+        ArrayList<Calle> componentes = r.getComponentes();
+        String mostrar = "";
+        for (Calle c : componentes){
+            mostrar = mostrar + c.toString() +"\n";
+        }
+        return mostrar;
     }
     
-        public void modificarCalle(Ruta r, int i, String nombre, float[] origen, float[] destino){
-        ArrayList<Componente> componentes = r.getComponentes();
-        Calle c = componentes.get(i).devolver();
-        if(nombre != null) c.setNombre(nombre);
-        if(origen != null) c.setOrigen(origen);
-        if(destino != null) c.setDestino(destino);
-        if(origen != null && destino != null){
-            c.setDistancia();
-            c.setTiempo();
+    public void modificarCalle(Ruta r, String nombrebuscado, String nombre, float[] origen, float[] destino){
+        ArrayList<Calle> componentes = r.getComponentes();
+        for (Calle c : componentes){
+            if(c.getNombre().equals(nombrebuscado)){
+                if(nombre != null) c.setNombre(nombre);
+                if(origen != null) c.setOrigen(origen);
+                if(destino != null) c.setDestino(destino);
+                if(origen != null && destino != null){
+                c.setDistancia();
+                c.setTiempo();
+                }
+            }
         }       
     }
     
-    public void eliminarCalle(Ruta r, int i){
-        r.getComponentes().remove(i);
+    public void eliminarCalle(Ruta r, String nombrebuscado){
+        for(int i=0; i<r.getComponentes().size(); i++){
+            if(r.getComponentes().get(i).getNombre().equals(nombrebuscado)){
+                r.getComponentes().remove(i);
+            }
+        }
     }
     
     //Metodos Usuario    
     public void crearUsuario(String tipoUsuario, String correo, String password){
         switch(tipoUsuario){
-            case "Pasajero":
+            case "2":
                 Usuario pasajero = new Pasajero();
                 pasajero.adicionar(usuarios.size()+1,correo, password);
                 usuarios.add(pasajero);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 break;
-            case "Conductor":
+            case "1":
                 Usuario conductor = new Conductor();
                 conductor.adicionar(usuarios.size()+1, correo, password);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 usuarios.add(conductor);
                 break;
-            case "Administrador":
+            case "3":
                 Administrador a = new Administrador();
                 Usuario u = new AdministradorAdapter(a);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
@@ -179,20 +205,67 @@ public class Fachada {
         }
     }
     
-    public void iniciarSesion(String correo, String password){
-        Usuario b = null;
-        int i=0;
+    public String iniciarSesion(String correo, String password){
+        int detectar = 0;
+        String retornar = null;
+        int j = 0;
         System.out.println(usuarios.size());
-        for(i=0; i<usuarios.size(); i++){
+        for(int i=0; i<usuarios.size(); i++){
             if(usuarios.get(i).getCorreo().equals(correo)){
                 if(usuarios.get(i).getPassword().equals(password)){
-                    i=1;
+                    detectar = 1;
+                    JOptionPane.showMessageDialog(null, "Sesión Iniciada");
+                    j = i;
                 }
             }
         }
-        if(i==0){
-            JOptionPane.showMessageDialog(null, "Credenciales Incorrectas");
+        if(detectar==0){
+            return "Fallido";
+        }
+        else{
+            if("class Clases.Conductor".equals(usuarios.get(j).getClass().toString())){
+                retornar = "1";
+            }
+            if("class Clases.Pasajero".equals(usuarios.get(j).getClass().toString())){
+                retornar = "2";
+            }
+            if("class Clases.AdministradorAdapter".equals(usuarios.get(j).getClass().toString())){
+                retornar = "3";
+            }
+            return retornar;
         }
     }
     
+    public Usuario buscarUsuario(String correo, String contraseña){
+        Usuario encontrado = null;
+        for(Usuario u: usuarios){
+            if(u.getCorreo().equals(correo) && u.getPassword().equals(contraseña)){
+                encontrado = u;
+                break;
+            }
+        }
+        return encontrado;
+    }
+    
+    public Ruta buscarRuta(String hora, Date fecha, int cupos, int tarifa){
+        Ruta encontrado = null;
+        for(Ruta r: rutas){
+            if(r.getHora().equals(hora) && r.getFecha() == fecha && r.getCupos() == cupos && r.getTarifa() == tarifa){
+                encontrado = r;
+                break;
+            }
+        }
+        return encontrado;
+    }
+    
+    public Ruta buscarRuta1(int id){
+        Ruta encontrado = null;
+        for(Ruta r: rutas){
+            if(r.getId() == id){
+                encontrado = r;
+                break;
+            }
+        }
+        return encontrado;
+    }
 }

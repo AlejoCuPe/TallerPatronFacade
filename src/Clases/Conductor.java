@@ -18,18 +18,22 @@ public class Conductor extends Usuario{
         super();
     }
 
+    @Override
     public String getCorreo() {
         return this.correoConductor;
     }
 
+    @Override
     public void setCorreo(String correoConductor) {
         this.correoConductor = correoConductor;
     }
 
+    @Override
     public String getPassword() {
         return this.passwordConductor;
     }
 
+    @Override
     public void setPassword(String passwordConductor) {
         this.passwordConductor = passwordConductor;
     }

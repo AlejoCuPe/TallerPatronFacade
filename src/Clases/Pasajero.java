@@ -18,22 +18,27 @@ public class Pasajero extends Usuario{
         super();
     }
 
+    @Override
     public String getCorreo() {
         return this.correoPasajero;
     }
 
+    @Override
     public void setCorreo(String correo) {
         this.correoPasajero = correo;
     }
 
+    @Override
     public String getPassword() {
         return this.passwordPasajero;
     }
 
+    @Override
     public void setPassword(String password) {
         this.passwordPasajero = password;
     }
     
+    @Override
     public void adicionar(int id, String correo, String password) {
         this.setCorreo(correo);
         this.setPassword(password);

@@ -20,11 +20,7 @@ public class Calle implements Componente{
     private float tiempo;
     
     public Calle(){
-        setNombre("");
-        setOrigen(new float[2]);
-        setDestino(new float[2]);
-        setDistancia();
-        setTiempo();
+
     }
 
     public Calle(String nombre, float[] origen, float[] destino) {
