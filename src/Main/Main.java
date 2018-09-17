@@ -228,7 +228,68 @@ public class Main {
                             }while(Opcion!= 0);
                         }
                         if(resultado.equals("2")){
-                            JOptionPane.showMessageDialog(null, "Si llego a Pasajero");
+                            do{
+                            Opcion = Integer.parseInt(JOptionPane.showInputDialog("--- Ingresar Número Correspondiente ---\n"
+                                        + "1. Crear Reserva\n"
+                                        + "2. Consultar Reserva\n"
+                                        + "3. Modificar Reserva\n"
+                                        + "4. Eliminar Reserva\n"
+                                        + "0. Salir"));
+                            switch(Opcion){
+                                case 1: 
+                                    mostrar = f.mostrarRutas();
+                                        if("Rutas \n".equals(mostrar)){
+                                            JOptionPane.showMessageDialog(null, "No hay rutas creadas");
+                                            break;
+                                        }
+                                        else{
+                                            id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que desea reservar: \n"
+                                                                                          + mostrar));
+                                      cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar"));
+                                        f.crearReserva(cupos, f.buscarRuta1(id), f.buscarUsuario(correo, contraseña));
+                                        JOptionPane.showMessageDialog(null, "Reserva creada");
+                                        break;
+                                        }
+                                case 2:
+                                     mostrar = f.mostrarReserva();
+                                     if("Reserva \n".equals(mostrar)){
+                                            JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                                            break;
+                                        }
+                                        else{
+                                          JOptionPane.showMessageDialog(null, "0.Atras: \n"+ mostrar);
+                                            break;
+                                                }
+                                case 3:
+                                     mostrar = f.mostrarReserva();
+                                     if("Reserva \n".equals(mostrar)){
+                                            JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                                            break;
+                                        }
+                                        else{
+                                            id = Integer.parseInt(JOptionPane.showInputDialog("selecciones la reserva que desea modificar: \n"
+                                                                                          + mostrar));
+                                            cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar nuevamente"));                                            
+                                            f.modificarReserva(id,cupos);
+                                             JOptionPane.showMessageDialog(null, "Reserva modificada");
+                                             break;
+                                     }
+                                case 4: 
+                                    mostrar = f.mostrarReserva();
+                                     if("Reserva \n".equals(mostrar)){
+                                            JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                                            break;
+                                        }
+                                        else{
+                                            id = Integer.parseInt(JOptionPane.showInputDialog("selecciones la reserva que desea eliminar: \n"
+                                                                                          + mostrar));
+                                                                                       
+                                            f.eliminarReserva(id);
+                                             JOptionPane.showMessageDialog(null, "Reserva eliminada");
+                                             break;
+                                     }
+                            }
+                        }while(Opcion!= 0);
                         }
                         if(resultado.equals("3")){
                             JOptionPane.showMessageDialog(null, "Todavía no hay para admin, sorry");

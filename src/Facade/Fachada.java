@@ -91,7 +91,7 @@ public class Fachada {
     
     
     //CRUD Reserva  
-    public void crearReserva(int cupos, Ruta ruta, Pasajero pasajero){
+    public void crearReserva(int cupos, Ruta ruta, Usuario pasajero){
         int id = reservas.size();
         Reserva reserva = new Reserva(id, ruta, cupos, pasajero);
         for (Ruta t : rutas) {
@@ -102,22 +102,23 @@ public class Fachada {
         reservas.add(reserva);
     } 
     
-    public String mostrarReserva(int id){
-        Reserva buscada = null;
-        for(Reserva r : reservas){
-            if(r.getId() == id){
-                buscada = r;
-            }
+    public String mostrarReserva(){
+        
+       String texto = "Reservas \n";
+        for(Reserva r : reservas){                
+            texto = texto + r.toString() + "\n ";
         }
-        return buscada.toString();
+        return texto;
     }  
     
     public void modificarReserva(int id, int cupos){
         for(Reserva r : reservas){
             if(r.getId() == id){
                 int cuposI = r.getCuposReservados();
+                r.setCuposReservados(cupos);
+                Ruta l = r.getRuta();
                 for(Ruta t : rutas){
-                    if(t.equals(r.getRuta())){
+                    if(t.equals(l)){
                         t.setCupos(-cupos + t.getCupos() + cuposI);
                     }
                 }        
@@ -126,9 +127,11 @@ public class Fachada {
     }
     
     public void eliminarReserva(int id){
-        for(Reserva r : reservas){
+        Iterator<Reserva> iter = reservas.iterator();
+        while (iter.hasNext()){
+            Reserva r = iter.next();
             if(r.getId() == id){
-                reservas.remove(r);
+                iter.remove();
             }
         }
     }

@@ -13,10 +13,10 @@ public class Reserva {
 
     int id;
     Ruta ruta;
-    Pasajero pasajero;
+    Usuario pasajero;
     int cuposReservados;
 
-    public Reserva(int id, Ruta ruta, int cuposReservados, Pasajero pasajero) {
+    public Reserva(int id, Ruta ruta, int cuposReservados, Usuario pasajero) {
         this.id = id;
         this.ruta = ruta;
         this.cuposReservados = cuposReservados;
@@ -39,7 +39,7 @@ public class Reserva {
         return cuposReservados;
     }
 
-    public Pasajero getPasajero() {
+    public Usuario getPasajero() {
         return pasajero;
     }
 
@@ -57,7 +57,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva" + "ruta=" + ruta + ", cuposReservados=" + cuposReservados;
+        return "Reserva"+(id)+": " + "ruta=" + ruta + ", cuposReservados=" + cuposReservados;
     }
 
     
