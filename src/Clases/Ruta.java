@@ -8,7 +8,6 @@ package Clases;
 import Interfaces.Componente;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -117,13 +116,18 @@ public class Ruta implements Componente{
     
     @Override
     public String toString() {
-        String texto = " Ruta " + (id) + " hora = " + hora + ", fecha = " + fecha + ", cupos = " + cupos + ", tarifa = " + tarifa;
+        String texto = "Ruta #" + (id) + " hora: " + hora + ", fecha:  " + fecha + ", cupos: " + cupos + ", tarifa: " + tarifa;
         String texto2 = "\n";
         String texto3 = " ";
         for(Componente c : getComponentes()){
             texto3 += c.toString() + "\n";
         }
         return texto + texto2 + texto3;
+    }
+    
+    public String toString1() {
+        String texto = "Ruta #" + (id) + "\nHora: " + hora + "\nFecha: " + fecha + "\nCupos: " + cupos + "\nTarifa: " + tarifa;
+        return texto;
     }
 
     @Override

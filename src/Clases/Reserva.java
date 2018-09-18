@@ -57,7 +57,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva"+(id)+": " + "ruta=" + ruta + ", cuposReservados=" + cuposReservados;
+        return "Reserva #"+(id)+": " + "\nRuta con destino a: " + ruta.getDestino() +"\nFecha: "+ruta.getFecha().toString() +"\nCupos Reservados: " + cuposReservados;
     }
 
     

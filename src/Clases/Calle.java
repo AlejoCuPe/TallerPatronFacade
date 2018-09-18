@@ -80,13 +80,14 @@ public class Calle implements Componente{
    
     @Override
     public String toString() {
-        return "\tNombre de la calle: "+nombre+"\n"+
+        return "\nNombre de la calle: "+nombre+"\n"+
                             "\tCoordenadas origen: X="+origen[0]+"m Y="+origen[1]+"m\n"+
                             "\tCoordenadas destino: X="+destino[0]+"m Y="+destino[1]+"m\n"+
                             "\tDistancia: "+distancia+"m\n"+
                             "\tTiempo: "+tiempo+"s";
     }
     
+    @Override
     public Calle devolver(){
         return this;
     }

@@ -13,7 +13,6 @@ import Clases.Pasajero;
 import Clases.Reserva;
 import Clases.Ruta;
 import Clases.Usuario;
-import Interfaces.Componente;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -61,9 +60,9 @@ public class Fachada {
     }
     
     public String mostrarRutas(){
-        String texto = "Rutas \n";
+        String texto = "Rutas \n\n";
         for(Ruta r : rutas){                
-            texto = texto + r.toString() + "\n ";
+            texto = texto + r.toString1() + "\n \n";
         }
         return texto;
     }
@@ -77,6 +76,16 @@ public class Fachada {
                 if(tarifa != 0) r.setTarifa(tarifa);
             }
         }
+    }
+    
+    public int verificarRuta(int id){
+        int probar = 0;
+        for(Ruta r : rutas){
+            if(r.getId() == id){
+                probar = 1;
+            }
+        }
+        return probar;
     }
     
     public void eliminarRuta(int id){
@@ -104,7 +113,7 @@ public class Fachada {
     
     public String mostrarReserva(){
         
-       String texto = "Reservas \n";
+       String texto = "Reservas \n\n";
         for(Reserva r : reservas){                
             texto = texto + r.toString() + "\n ";
         }
@@ -134,6 +143,16 @@ public class Fachada {
                 iter.remove();
             }
         }
+    }
+    
+    public int verificarReserva(int id){
+        int probar = 0;
+        for(Reserva r : reservas){
+            if(r.getId() == id){
+                probar = 1;
+            }
+        }
+        return probar;
     }
     
     //CRUD Calle 
@@ -206,6 +225,18 @@ public class Fachada {
                 break;
             
         }
+    }
+    
+    public int verificarCalle(int id1, String nombre){
+        int probar = 0;
+        Ruta r = buscarRuta1(id1);
+        ArrayList<Calle> componentes = r.getComponentes();
+        for(Calle c : componentes){
+            if(c.getNombre().equals(nombre)){
+                probar = 1;
+            }
+        }
+        return probar;
     }
     
     public String iniciarSesion(String correo, String password){
