@@ -10,10 +10,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Main {
     @SuppressWarnings("CallToPrintStackTrace")
     public static void main(String[] args) throws ParseException{
+        
+        try{
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }catch(Exception e){
+            
+        }
+        
         Fachada f = new Fachada();
         int Opcion, Opcion1, cupos, tarifa, id, probar;
         String correo, contraseña, tipoUsuario, nombreBuscado, nombreCalle, nombre, mostrar;
