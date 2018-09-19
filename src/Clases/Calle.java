@@ -27,6 +27,8 @@ public class Calle implements Componente{
         this.nombre = nombre;
         this.origen = origen;
         this.destino = destino;
+        this.setDistancia();
+        this.setTiempo();
     }
     
     public String getNombre() {
@@ -70,26 +72,29 @@ public class Calle implements Componente{
     }
 
     @Override
-    public void mostrar() {
-        System.out.println("\tNombre de la calle: "+nombre+"\n"+
-                            "\tCoordenadas origen: X="+origen[0]+"m Y="+origen[1]+"m\n"+
-                            "\tCoordenadas destino: X="+destino[0]+"m Y="+destino[1]+"m\n"+
-                            "\tDistancia: "+distancia+"m\n"+
-                            "\tTiempo: "+tiempo+"s");
-    }
-   
-    @Override
-    public String toString() {
-        return "\nNombre de la calle: "+nombre+"\n"+
+    public String mostrar() {
+        String mostrar = "\tNombre de la calle: "+nombre+"\n"+
                             "\tCoordenadas origen: X="+origen[0]+"m Y="+origen[1]+"m\n"+
                             "\tCoordenadas destino: X="+destino[0]+"m Y="+destino[1]+"m\n"+
                             "\tDistancia: "+distancia+"m\n"+
                             "\tTiempo: "+tiempo+"s";
+        return mostrar;
     }
-    
+   
+
     @Override
-    public Calle devolver(){
-        return this;
+    public String devolverNombre() {
+        return nombre;
+    }
+
+    @Override
+    public void mostrarDatos() {
+        
+    }
+
+    @Override
+    public void modificar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

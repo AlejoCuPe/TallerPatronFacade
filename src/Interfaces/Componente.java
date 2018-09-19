@@ -5,13 +5,15 @@
  */
 package Interfaces;
 
-import Clases.Calle;
+import java.util.ArrayList;
 
 /**
  *
  * @author alejo
  */
 public interface Componente {
-    public void mostrar();
-    public Calle devolver();
+    public String mostrar();
+    public ArrayList mostrarDatos();
+    public void modificar();
+    public String devolverNombre();
 }

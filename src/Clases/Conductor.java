@@ -9,33 +9,9 @@ package Clases;
  *
  * @author alejo
  */
-public class Conductor extends Usuario{
-    
-    private String correoConductor;
-    private String passwordConductor;
-    
+public class Conductor extends Usuario{    
     public Conductor(){
         super();
-    }
-
-    @Override
-    public String getCorreo() {
-        return this.correoConductor;
-    }
-
-    @Override
-    public void setCorreo(String correoConductor) {
-        this.correoConductor = correoConductor;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.passwordConductor;
-    }
-
-    @Override
-    public void setPassword(String passwordConductor) {
-        this.passwordConductor = passwordConductor;
     }
 
     @Override
@@ -52,6 +28,11 @@ public class Conductor extends Usuario{
     @Override
     public void modificar(String correo, String password) {
         this.setPassword(password);
+    }
+
+    @Override
+    public String toString() {
+        return "Correo: "+getCorreo()+" - Password: "+getPassword()+" - Tipo de Usuario: Conductor";
     }
     
     

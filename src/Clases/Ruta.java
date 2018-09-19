@@ -19,7 +19,7 @@ public class Ruta implements Componente{
     private String origen;
     private String destino;
     private String hora;
-    private ArrayList<Calle> componentes = new ArrayList<>();
+    private ArrayList<Componente> componentes = new ArrayList<>();
     private Date fecha;
     private int cupos;
     private int tarifa;
@@ -55,8 +55,6 @@ public class Ruta implements Componente{
     public void setDestino(String destino) {
         this.destino = destino;
     }
-    
-    
     
     public void setFecha(Date fecha) {
         this.fecha = fecha;
@@ -102,16 +100,12 @@ public class Ruta implements Componente{
         this.id = id;
     }
     
-    public void add(Calle c){
+    public void add(Componente c){
         componentes.add(c);
     }
     
-    public ArrayList<Calle> getComponentes(){
+    public ArrayList<Componente> getComponentes(){
         return componentes;
-    }
-    
-    public void setComponentes(ArrayList<Calle> componentes){
-        this.componentes = componentes;
     }
     
     @Override
@@ -124,20 +118,34 @@ public class Ruta implements Componente{
         }
         return texto + texto2 + texto3;
     }
-    
-    public String toString1() {
+
+    @Override
+    public String mostrar() {
         String texto = "Ruta #" + (id) + "\nHora: " + hora + "\nFecha: " + fecha + "\nCupos: " + cupos + "\nTarifa: " + tarifa;
         return texto;
     }
 
     @Override
-    public void mostrar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String devolverNombre() {
+        return destino;
+    } 
+
+    @Override
+    public ArrayList mostrarDatos() {
+        ArrayList r = new ArrayList<>();
+        r.add(id);
+        r.add(origen);
+        r.add(destino);
+        r.add(hora);
+        r.add(fecha);
+        r.add(cupos);
+        r.add(tarifa);
+        return r;
     }
 
     @Override
-    public Calle devolver() {
+    public void modificar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-      
+
 }

@@ -17,6 +17,7 @@ abstract public class Usuario {
     public abstract void adicionar(int id, String correo, String password);
     public abstract String consultar(String correo);
     public abstract void modificar(String correo, String password);
+    public abstract String toString();
 
     public String getCorreo() {
         return this.correo;

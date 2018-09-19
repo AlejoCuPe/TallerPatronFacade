@@ -404,7 +404,18 @@ public class Main {
                             }while(Opcion!= 0);
                         }
                         if(resultado.equals("3")){
-                            JOptionPane.showMessageDialog(null, "Todavía no hay para admin, sorry");
+                            do{
+                                Opcion1 = Integer.parseInt(JOptionPane.showInputDialog("1. Mostrar Usuarios \n"
+                                                                                 + "0. Salir"));
+                                switch(Opcion1){
+                                    case 1:
+                                        JOptionPane.showMessageDialog(null, f.mostrarUsuarios());
+                                    case 0:
+                                        JOptionPane.showMessageDialog(null, "Hasta luego administrador");
+                                    default:
+                                        JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
+                                }
+                            }while(Opcion1 != 0);
                         }
                     }
 
