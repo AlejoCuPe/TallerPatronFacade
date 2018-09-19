@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public interface Componente {
     public String mostrar();
-    public ArrayList mostrarDatos();
     public void modificar();
     public String devolverNombre();
 }

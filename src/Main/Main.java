@@ -5,7 +5,9 @@
  */
 package Main;
 
+import Clases.Ruta;
 import Facade.Fachada;
+import Interfaces.Componente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -256,6 +258,7 @@ public class Main {
                                                 break;
                                             }
                                             else{
+                                                mostrar = "";
                                                 mostrar = f.mostrarCalle(f.buscarRuta1(id));
                                                 nombreBuscado = JOptionPane.showInputDialog("Ingrese el nombre de la calle a modificar: \n\n" + mostrar);
                                                 probar = f.verificarCalle(id, nombreBuscado);
@@ -291,8 +294,9 @@ public class Main {
                                                 break;
                                             }
                                             else{
+                                                mostrar = "";
                                                 mostrar = f.mostrarCalle(f.buscarRuta1(id));
-                                                nombreBuscado = JOptionPane.showInputDialog("Ingrese el nombre de la ruta a modificar: \n\n" + mostrar);
+                                                nombreBuscado = JOptionPane.showInputDialog("Ingrese el nombre de la calle a eliminar: \n\n" + mostrar);
                                                 probar = f.verificarCalle(id, nombreBuscado);
                                                 if(probar == 0){
                                                     JOptionPane.showMessageDialog(null, "No existe dicha calle");

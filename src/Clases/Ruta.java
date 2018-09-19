@@ -131,19 +131,6 @@ public class Ruta implements Componente{
     } 
 
     @Override
-    public ArrayList mostrarDatos() {
-        ArrayList r = new ArrayList<>();
-        r.add(id);
-        r.add(origen);
-        r.add(destino);
-        r.add(hora);
-        r.add(fecha);
-        r.add(cupos);
-        r.add(tarifa);
-        return r;
-    }
-
-    @Override
     public void modificar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
