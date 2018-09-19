@@ -14,6 +14,8 @@ import Clases.Reserva;
 import Clases.Ruta;
 import Clases.Usuario;
 import Interfaces.Componente;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -43,12 +45,12 @@ public class Fachada {
     }
     
     public String mostrarRuta(String nombreDestino, Date fecha, String hora){
-        Ruta buscada = null;
+        Componente buscada = null;
         for(Componente r : rutas){
-            Ruta x = (Ruta) r;
-            if(x.getDestino().equals(nombreDestino)){
-                if(x.getFecha() == fecha && x.getHora().equals(hora)){
-                    buscada = x;
+            String[] datos = r.mostrarDatos();
+            if(datos[2].equals(nombreDestino)){
+                if(datos[4].equals(fecha.toString()) && datos[3].equals(hora)){
+                    buscada = r;
                 }
             }
         }
@@ -57,7 +59,7 @@ public class Fachada {
             return "No se ha encontrado la ruta";
         }
         else{
-            return buscada.toString();
+            return buscada.mostrar();
         }
         
     }
@@ -72,13 +74,9 @@ public class Fachada {
     
     public void modificarRuta(int id, String hora, Date fecha, int cupos, int tarifa){
         for(Componente c : rutas){
-            Ruta x = (Ruta) c;
-            if(x.getId() == id){
-                if(hora != null) x.setHora(hora);
-                if(fecha != null) x.setFecha(fecha);
-                if(cupos != 0) x.setCupos(cupos);
-                if(tarifa != 0) x.setTarifa(tarifa);
-                c = x;
+            String[] datos = c.mostrarDatos();
+            if(Integer.parseInt(datos[0]) == id){
+                c.modificarInformacion(hora, fecha, cupos, tarifa);
             }
         }
     }
@@ -86,8 +84,8 @@ public class Fachada {
     public int verificarRuta(int id){
         int probar = 0;
         for(Componente c : rutas){
-            Ruta r = (Ruta) c;
-            if(r.getId() == id){
+            String[] datos = c.mostrarDatos();
+            if(Integer.parseInt(datos[0]) == id){
                 probar = 1;
             }
         }
@@ -98,8 +96,8 @@ public class Fachada {
         Iterator<Componente> iter = rutas.iterator();
         while (iter.hasNext()){
             Componente r = iter.next();
-            Ruta x = (Ruta) r;
-            if(x.getId() == id){
+            String[] datos = r.mostrarDatos();
+            if(Integer.parseInt(datos[0]) == id){
                 iter.remove();
             }
         }
@@ -134,10 +132,17 @@ public class Fachada {
                 r.setCuposReservados(cupos);
                 Ruta l = r.getRuta();
                 for(Componente t : rutas){
-                    Ruta x = (Ruta) t;
+                    String[] datos = t.mostrarDatos();
                     if(t.equals(l)){
-                        x.setCupos(-cupos + x.getCupos() + cuposI);
-                        t = x;
+                        Date date = null;
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        String dateInString = datos[4];
+                        try {
+                            date = formatter.parse(dateInString);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        t.modificarInformacion(datos[3], date, (-cupos + Integer.parseInt(datos[5]) + cuposI), Integer.parseInt(datos[6]));
                         break;
                     }
                 }        
@@ -169,10 +174,9 @@ public class Fachada {
     public void crearCalle(Ruta r, String nombre, float[] origen, float[] destino) {
         Componente c = new Calle(nombre, origen, destino);
         for (Componente co : rutas) {
-            Ruta x = (Ruta) co;
-            if (x.equals(r)) {
-                x.add(c);
-                co = x;
+            if (co.equals(r)) {
+                co.añadirComponente(c);
+                break;
             }
         }
     }
@@ -290,9 +294,9 @@ public class Fachada {
     public Ruta buscarRuta(String hora, Date fecha, int cupos, int tarifa){
         Ruta encontrado = null;
         for(Componente r: rutas){
-            Ruta x = (Ruta)r;
-            if(x.getHora().equals(hora) && x.getFecha() == fecha && x.getCupos() == cupos && x.getTarifa() == tarifa){
-                encontrado = x;
+            String[] datos = r.mostrarDatos();
+            if(datos[3].equals(hora) && datos[4].equals(fecha.toString()) && Integer.parseInt(datos[5]) == cupos && Integer.parseInt(datos[6]) == tarifa){
+                encontrado = (Ruta) r;
                 break;
             }
         }
@@ -302,9 +306,9 @@ public class Fachada {
     public Ruta buscarRuta1(int id){
         Ruta encontrado = null;
         for(Componente r: rutas){
-            Ruta x = (Ruta) r;
-            if(x.getId() == id){
-                encontrado = x;
+            String[] datos = r.mostrarDatos();
+            if(Integer.parseInt(datos[0]) == id){
+                encontrado = (Ruta) r;
                 break;
             }
         }

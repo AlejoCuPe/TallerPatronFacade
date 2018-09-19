@@ -5,7 +5,7 @@
  */
 package Interfaces;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public interface Componente {
     public String mostrar();
-    public void modificar();
+    public String[] mostrarDatos();
+    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa);
     public String devolverNombre();
+    public void añadirComponente(Componente c);
 }

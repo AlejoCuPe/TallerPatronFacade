@@ -6,6 +6,7 @@
 package Clases;
 
 import Interfaces.Componente;
+import java.util.Date;
 
 /**
  *
@@ -59,7 +60,7 @@ public class Calle implements Componente{
         return distancia;
     }
 
-    public void setDistancia() {
+    private void setDistancia() {
         this.distancia = (this.destino[1]-this.origen[1])/(this.destino[0]-this.origen[0]);
     }
 
@@ -67,7 +68,7 @@ public class Calle implements Componente{
         return tiempo;
     }
 
-    public void setTiempo() {
+    private void setTiempo() {
         this.tiempo = 60/this.distancia;
     }
 
@@ -88,8 +89,26 @@ public class Calle implements Componente{
     }
 
     @Override
-    public void modificar() {
+    public String[] mostrarDatos() {
+        String[] datos = new String[5];
+        datos[0] = nombre;
+        datos[1] = Float.toString(origen[0]);
+        datos[2] = Float.toString(origen[1]);
+        datos[3] = Float.toString(destino[0]);
+        datos[4] = Float.toString(destino[1]);
+        datos[5] = Float.toString(distancia);
+        datos[4] = Float.toString(tiempo);
+        return datos;
+    }
+
+    @Override
+    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void añadirComponente(Componente c) {
+        System.out.println("No se requiere");
     }
     
 }

@@ -131,8 +131,29 @@ public class Ruta implements Componente{
     } 
 
     @Override
-    public void modificar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String[] mostrarDatos() {
+        String[] datos = new String[7];
+        datos[0] = Integer.toString(id);
+        datos[1] = origen;
+        datos[2] = destino;
+        datos[3] = hora;
+        datos[4] = fecha.toString();
+        datos[6] = Integer.toString(tarifa);
+        datos[5] = Integer.toString(cupos);
+        return datos;
+    }
+
+    @Override
+    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa) {
+        this.setHora(hora);
+        this.setFecha(fecha);
+        this.setCupos(cupos);
+        this.setTarifa(tarifa);
+    }
+
+    @Override
+    public void añadirComponente(Componente c) {
+        this.add(c);
     }
 
 }
