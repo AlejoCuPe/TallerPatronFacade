@@ -5,6 +5,7 @@
  */
 package Main;
 
+import Clases.Usuario;
 import Facade.Fachada;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,6 @@ public class Main {
                     contraseña = JOptionPane.showInputDialog("Ingrese su contraseña");
                     String resultado = f.iniciarSesion(correo, contraseña);
                     if(resultado.equals("Fallido")){
-                        JOptionPane.showMessageDialog(null, "Credenciales Incorrectas");
                         break;
                     }
                     else{
@@ -73,7 +73,7 @@ public class Main {
                                         }
                                         cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
                                         tarifa = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
-                                        f.crearRuta(hora, origen, destino, date, cupos, tarifa, f.buscarUsuario(correo, contraseña));
+                                        f.crearRuta(hora, origen, destino, date, cupos, tarifa, (Usuario)f.buscarUsuario(correo, contraseña));
                                         int elegir = 0;
                                         do{
                                             elegir = Integer.parseInt(JOptionPane.showInputDialog("1. Añadir una calle a la ruta.\n"
@@ -335,7 +335,7 @@ public class Main {
                                                 }
                                                 else{
                                                     cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar"));
-                                                    f.crearReserva(cupos, f.buscarRuta1(id), f.buscarUsuario(correo, contraseña));
+                                                    f.crearReserva(cupos, f.buscarRuta1(id), (Usuario)f.buscarUsuario(correo, contraseña));
                                                     JOptionPane.showMessageDialog(null, "Reserva creada");
                                                     break;
                                                 }
@@ -407,18 +407,7 @@ public class Main {
                             }while(Opcion!= 0);
                         }
                         if(resultado.equals("3")){
-                            do{
-                                Opcion1 = Integer.parseInt(JOptionPane.showInputDialog("1. Mostrar Usuarios \n"
-                                                                                 + "0. Salir"));
-                                switch(Opcion1){
-                                    case 1:
-                                        JOptionPane.showMessageDialog(null, f.mostrarUsuarios());
-                                    case 0:
-                                        JOptionPane.showMessageDialog(null, "Hasta luego administrador");
-                                    default:
-                                        JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
-                                }
-                            }while(Opcion1 != 0);
+                            
                         }
                     }
 

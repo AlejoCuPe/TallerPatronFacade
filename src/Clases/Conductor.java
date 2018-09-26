@@ -15,25 +15,26 @@ public class Conductor extends Usuario{
     }
 
     @Override
-    public void adicionar(int id, String correo, String password) {
-        this.setCorreo(correo);
-        this.setPassword(password);
+    public void adicionar(String correo, String password) {
+        super.setCorreo(correo);
+        super.setPassword(password);
     }
 
     @Override
     public String consultar(String correo) {
-        return this.getPassword();
+        return super.getPassword();
     }
 
     @Override
     public void modificar(String correo, String password) {
-        this.setPassword(password);
+        super.setPassword(password);
     }
-
+    
     @Override
     public String toString() {
-        return "Correo: "+getCorreo()+" - Password: "+getPassword()+" - Tipo de Usuario: Conductor";
+        return "Correo: "+super.getCorreo()+" - Password: "+super.getPassword()+" - Tipo de Usuario: Conductor";
     }
-    
-    
+
+  
+        
 }

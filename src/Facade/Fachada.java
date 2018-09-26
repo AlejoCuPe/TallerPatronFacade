@@ -13,7 +13,9 @@ import Clases.Pasajero;
 import Clases.Reserva;
 import Clases.Ruta;
 import Clases.Usuario;
+import Clases.UsuarioFactory;
 import Interfaces.Componente;
+import Interfaces.IUsuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,10 +27,9 @@ import javax.swing.JOptionPane;
  */
 public class Fachada {
     
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
-    private ArrayList<Ruta> rutas = new ArrayList<>();
-    private ArrayList<Reserva> reservas = new ArrayList<>();
-    
+    private final ArrayList<Ruta> rutas = new ArrayList<>();
+    private final ArrayList<Reserva> reservas = new ArrayList<>();
+    private UsuarioFactory u = new UsuarioFactory();
     
     public Fachada(){
         
@@ -202,22 +203,22 @@ public class Fachada {
         switch(tipoUsuario){
             case "2":
                 Usuario pasajero = new Pasajero();
-                pasajero.adicionar(usuarios.size()+1,correo, password);
-                usuarios.add(pasajero);
+                pasajero.adicionar(correo, password);
+                u.crearUsuario(correo, pasajero);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 break;
             case "1":
                 Usuario conductor = new Conductor();
-                conductor.adicionar(usuarios.size()+1, correo, password);
+                conductor.adicionar(correo, password);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                usuarios.add(conductor);
+                u.crearUsuario(correo, conductor);
                 break;
             case "3":
                 Administrador a = new Administrador();
-                Usuario u = new AdministradorAdapter(a);
+                Usuario admin = new AdministradorAdapter(a);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                u.adicionar(usuarios.size()+1, correo, password);
-                usuarios.add(u);
+                admin.adicionar(correo, password);
+                u.crearUsuario(correo, admin);
                 break;
             default:
                 break;
@@ -239,44 +240,34 @@ public class Fachada {
     }
     
     public String iniciarSesion(String correo, String password){
-        int detectar = 0;
-        String retornar = null;
-        int j = 0;
-        System.out.println(usuarios.size());
-        for(int i=0; i<usuarios.size(); i++){
-            if(usuarios.get(i).getCorreo().equals(correo)){
-                if(usuarios.get(i).getPassword().equals(password)){
-                    detectar = 1;
-                    JOptionPane.showMessageDialog(null, "Sesión Iniciada");
-                    j = i;
-                }
-            }
-        }
-        if(detectar==0){
-            return "Fallido";
+        String fallido = "Fallido";
+        IUsuario x = u.mostrarUsuario(correo);
+        if(x == null){
+            JOptionPane.showMessageDialog(null, "No existe ese usuario");
         }
         else{
-            if("class Clases.Conductor".equals(usuarios.get(j).getClass().toString())){
-                retornar = "1";
+            if(x.getPassword().equals(password)){
+                JOptionPane.showMessageDialog(null, "Sesión Iniciada");
+                if("class Clases.Conductor".equals(x.getClass().toString())){
+                    fallido = "1";
+                }
+                if("class Clases.Pasajero".equals(x.getClass().toString())){
+                    fallido = "2";
+                }
+                if("class Clases.AdministradorAdapter".equals(x.getClass().toString())){
+                    fallido = "3";
+                }
             }
-            if("class Clases.Pasajero".equals(usuarios.get(j).getClass().toString())){
-                retornar = "2";
+            else{
+                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
             }
-            if("class Clases.AdministradorAdapter".equals(usuarios.get(j).getClass().toString())){
-                retornar = "3";
-            }
-            return retornar;
         }
+        return fallido;
     }
     
-    public Usuario buscarUsuario(String correo, String contraseña){
-        Usuario encontrado = null;
-        for(Usuario u: usuarios){
-            if(u.getCorreo().equals(correo) && u.getPassword().equals(contraseña)){
-                encontrado = u;
-                break;
-            }
-        }
+    public IUsuario buscarUsuario(String correo, String contraseña){
+        IUsuario encontrado = null;
+        encontrado = u.mostrarUsuario(correo);
         return encontrado;
     }
     
@@ -303,13 +294,5 @@ public class Fachada {
             }
         }
         return encontrado;
-    }
-    
-    public String mostrarUsuarios(){
-        String retornar = "Usuarios: \n\n";
-        for(Usuario u : usuarios){
-            retornar = retornar + u.toString();
-        }
-        return retornar;
     }
 }
