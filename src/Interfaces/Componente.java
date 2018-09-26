@@ -13,8 +13,5 @@ import java.util.Date;
  */
 public interface Componente {
     public String mostrar();
-    public String[] mostrarDatos();
-    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa);
-    public String devolverNombre();
-    public void añadirComponente(Componente c);
+    public void modificar(String nombre, float[] origen, float[] destino);
 }

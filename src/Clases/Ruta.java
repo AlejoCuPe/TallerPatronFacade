@@ -107,53 +107,32 @@ public class Ruta implements Componente{
     public ArrayList<Componente> getComponentes(){
         return componentes;
     }
-    
-    @Override
-    public String toString() {
-        String texto = "Ruta #" + (id) + " hora: " + hora + ", fecha:  " + fecha + ", cupos: " + cupos + ", tarifa: " + tarifa;
-        String texto2 = "\n";
-        String texto3 = " ";
-        for(Componente c : getComponentes()){
-            texto3 += c.toString() + "\n";
-        }
-        return texto + texto2 + texto3;
-    }
 
     @Override
     public String mostrar() {
-        String texto = "Ruta #" + (id) + "\nHora: " + hora + "\nFecha: " + fecha + "\nCupos: " + cupos + "\nTarifa: " + tarifa;
+        String texto = "Ruta #" + (id) + "\nHora: " + hora + "\nFecha: N" + fecha.toString() + "\nCupos: " + cupos + "\nTarifa: " + tarifa+"\n\n";
+        for(Componente c : getComponentes()){
+            texto = texto + c.mostrar();
+        }
+        return texto;
+    }
+    
+    public String mostrarRuta() {
+        String texto = "Ruta #" + (id) + "\nHora: " + hora + "\nFecha: N" + fecha.toString() + "\nCupos: " + cupos + "\nTarifa: " + tarifa+"\n\n";
         return texto;
     }
 
     @Override
-    public String devolverNombre() {
-        return destino;
-    } 
-
-    @Override
-    public String[] mostrarDatos() {
-        String[] datos = new String[7];
-        datos[0] = Integer.toString(id);
-        datos[1] = origen;
-        datos[2] = destino;
-        datos[3] = hora;
-        datos[4] = fecha.toString();
-        datos[6] = Integer.toString(tarifa);
-        datos[5] = Integer.toString(cupos);
-        return datos;
-    }
-
-    @Override
-    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa) {
-        this.setHora(hora);
-        this.setFecha(fecha);
-        this.setCupos(cupos);
-        this.setTarifa(tarifa);
-    }
-
-    @Override
-    public void añadirComponente(Componente c) {
-        this.add(c);
+    public void modificar(String nombre, float[] origen, float[] destino) {
+        for(Componente c : componentes){
+            String cosa = c.mostrar();
+            String[] m = cosa.split("°");
+            if(m[1].equals(nombre)){
+                c.modificar(nombre, origen, destino);
+            }
+        }
     }
 
 }
+
+

@@ -36,7 +36,5 @@ public class AdministradorAdapter extends Usuario{
     public String toString() {
         return "Correo: " + getCorreo() + " - Password: " + getPassword() + " - Tipo de Usuario: Administrador\n";
     }
-
-    
-            
+          
 }

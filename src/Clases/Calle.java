@@ -6,7 +6,6 @@
 package Clases;
 
 import Interfaces.Componente;
-import java.util.Date;
 
 /**
  *
@@ -74,41 +73,21 @@ public class Calle implements Componente{
 
     @Override
     public String mostrar() {
-        String mostrar = "\tNombre de la calle: "+nombre+"\n"+
+        String mostrar = "\tNombre de la calle: °"+nombre+"°\n"+
                             "\tCoordenadas origen: X="+origen[0]+"m Y="+origen[1]+"m\n"+
                             "\tCoordenadas destino: X="+destino[0]+"m Y="+destino[1]+"m\n"+
                             "\tDistancia: "+distancia+"m\n"+
                             "\tTiempo: "+tiempo+"s";
         return mostrar;
-    }
-   
+    }    
 
     @Override
-    public String devolverNombre() {
-        return nombre;
+    public void modificar(String nombre, float[] origen, float[] destino) {
+        this.setNombre(nombre);
+        this.setDestino(destino);
+        this.setOrigen(origen);
+        this.setDistancia();
+        this.setTiempo();
     }
 
-    @Override
-    public String[] mostrarDatos() {
-        String[] datos = new String[5];
-        datos[0] = nombre;
-        datos[1] = Float.toString(origen[0]);
-        datos[2] = Float.toString(origen[1]);
-        datos[3] = Float.toString(destino[0]);
-        datos[4] = Float.toString(destino[1]);
-        datos[5] = Float.toString(distancia);
-        datos[4] = Float.toString(tiempo);
-        return datos;
-    }
-
-    @Override
-    public void modificarInformacion(String hora, Date fecha, int cupos, int tarifa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void añadirComponente(Componente c) {
-        System.out.println("No se requiere");
-    }
-    
 }
