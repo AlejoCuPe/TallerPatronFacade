@@ -315,6 +315,7 @@ public class Main {
                                             + "2. Consultar Reserva\n"
                                             + "3. Modificar Reserva\n"
                                             + "4. Eliminar Reserva\n"
+                                            + "5. Pagar Servicio"
                                             + "0. Salir"));
                                 switch(Opcion){
                                     
@@ -398,11 +399,15 @@ public class Main {
                                             }
                                         }
                                         
+                                    case 5:
+                                        
+                                        
                                     case 0:
                                         JOptionPane.showMessageDialog(null, "Hasta luego pasajero");
-                                        
+                                        break;
                                     default:
                                         JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
+                                        break;
                                 }
                             }while(Opcion!= 0);
                         }

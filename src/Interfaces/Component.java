@@ -7,10 +7,6 @@ package Interfaces;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author alejo
- */
 public interface Component {
     public void asignar(ArrayList<String> valores);
     public String pagar();
