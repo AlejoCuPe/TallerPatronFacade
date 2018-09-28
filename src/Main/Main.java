@@ -301,7 +301,6 @@ public class Main {
                         if (resultado.equals("2")) {
                             do {
                                 Opcion = Integer.parseInt(JOptionPane.showInputDialog("--- Ingresar Número Correspondiente ---\n"
-<<<<<<< HEAD
                                             + "1. Crear Reserva\n"
                                             + "2. Consultar Reserva\n"
                                             + "3. Modificar Reserva\n"
@@ -309,17 +308,6 @@ public class Main {
                                             + "5. Pagar Servicio"
                                             + "0. Salir"));
                                 switch(Opcion){
-                                    
-=======
-                                        + "1. Crear Reserva\n"
-                                        + "2. Consultar Reserva\n"
-                                        + "3. Modificar Reserva\n"
-                                        + "4. Eliminar Reserva\n"
-                                        + "0. Salir"));
-                                switch (Opcion) {
-
->>>>>>> 093446dea96abc0f40b3a4c498c7f9f276a5d2b2
-                                    //Crear Reserva
                                     case 1:
                                         mostrar = f.mostrarRutas();
                                         if ("Rutas \n".equals(mostrar)) {
@@ -391,7 +379,6 @@ public class Main {
                                                 break;
                                             }
                                         }
-<<<<<<< HEAD
                                         
                                     case 5:
                                         
@@ -399,12 +386,6 @@ public class Main {
                                     case 0:
                                         JOptionPane.showMessageDialog(null, "Hasta luego pasajero");
                                         break;
-=======
-
-                                    case 0:
-                                        JOptionPane.showMessageDialog(null, "Hasta luego pasajero");
-
->>>>>>> 093446dea96abc0f40b3a4c498c7f9f276a5d2b2
                                     default:
                                         JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
                                         break;
