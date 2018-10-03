@@ -381,7 +381,88 @@ public class Main {
                                         }
                                         
                                     case 5:
-                                        
+                                        ArrayList<String> pagos = new ArrayList<>();
+                                        Component pago;
+                                        String valor = JOptionPane.showInputDialog("Ingrese el valor a pagar");
+                                        String id1 = JOptionPane.showInputDialog("Ingrese el ID del Pasajero");
+                                        String id2 = JOptionPane.showInputDialog("Ingrese el ID del Conductor");
+                                        pagos.add(valor);
+                                        pagos.add(id1);
+                                        pagos.add(id2);
+                                        Component p = new Pago();
+                                        p.asignar(pagos);
+
+                                        String medioPago = JOptionPane.showInputDialog("Ingrese el medio de pago"
+                                                + "\n 1. Efectivo"
+                                                + "\n 2. PSE");
+                                        if (medioPago.equals("1")) {
+                                            ArrayList<String> efectivo = new ArrayList<>();
+                                            pago = new PagoEfectivo(p);
+                                            efectivo.add(valor);
+                                            efectivo.add("Pesos colombianos");
+                                            p.asignar(efectivo);
+                                            JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + p.pagar());
+                                        } else if (medioPago.equals("2")) {
+                                            pago = new PagoPSE(new Pago());
+                                            ArrayList<String> pse = new ArrayList<>();
+                                            String noCuentaP = JOptionPane.showInputDialog("Ingrese el numero de su cuenta");
+                                            String claveCuenta = JOptionPane.showInputDialog("Ingrese la clave de la cuenta");
+                                            String noCuentaD = JOptionPane.showInputDialog("Ingrese el numero de la cuenta del conductor");
+                                            pse.add(valor);
+                                            pse.add(noCuentaP);
+                                            pse.add(claveCuenta);
+                                            pse.add(noCuentaD);
+                                            System.out.print(pse.size());
+                                            pago.asignar(pse);
+                                            String alternate = "1";
+                                            String medPagAlt = "PSE";
+                                            do {
+                                                alternate = JOptionPane.showInputDialog("¿Desea pagar con " + medPagAlt + " con un medio de pago alternativo?"
+                                                        + "\n1. Si"
+                                                        + "\n2. No");
+                                                if (alternate.equals("2")) {
+                                                    break;
+                                                }
+                                                String medioAltPSE = JOptionPane.showInputDialog("Elija el medio de pago alternativo"
+                                                        + "\n1. Baloto"
+                                                        + "\n2. Tarjeta Credito");
+                                                switch (medioAltPSE) {
+                                                    case "1":
+                                                        medPagAlt = "Baloto";
+                                                        pago = new BalotoDecorator(pago);
+                                                        ArrayList<String> baloto = new ArrayList<>();
+                                                        String noConf = JOptionPane.showInputDialog("Ingrese el numero de confirmacion");
+                                                        baloto.add(valor);
+                                                        baloto.add(noCuentaP);
+                                                        baloto.add(claveCuenta);
+                                                        baloto.add(noCuentaD);
+                                                        baloto.add(noConf);
+                                                        System.out.println(baloto.size());
+                                                        pago.asignar(baloto);
+                                                        break;
+                                                    case "2":
+                                                        medPagAlt = "Tarjeta de Credito";
+                                                        pago = new CreditoDecorator(pago);
+                                                        ArrayList<String> credito = new ArrayList<>();
+                                                        String noTarj = JOptionPane.showInputDialog("Ingrese el numero de la tarjeta");
+                                                        String cvv = JOptionPane.showInputDialog("Ingrese el CVV");
+                                                        credito.add(valor);
+                                                        credito.add(noCuentaP);
+                                                        credito.add(claveCuenta);
+                                                        credito.add(noCuentaD);
+                                                        credito.add(noTarj);
+                                                        credito.add(cvv);
+
+                                                        pago.asignar(credito);
+                                                        break;
+                                                    default:
+                                                        JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
+                                                        break;
+                                                }
+                                                break;
+                                            } while (!alternate.equals("2"));
+                                            JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + pago.pagar());
+                                        }
                                         
                                     case 0:
                                         JOptionPane.showMessageDialog(null, "Hasta luego pasajero");
@@ -396,7 +477,6 @@ public class Main {
 
                         }
                     }
-
                     break;
                 case 0:
                     JOptionPane.showMessageDialog(null, "Profe pongános 50 :'v");
@@ -406,89 +486,5 @@ public class Main {
         } while (Opcion1 != 0);
     }
 
-    public void pagar() {
-        ArrayList<String> pagos = new ArrayList<>();
-        Component pago;
-        String valor = JOptionPane.showInputDialog("Ingrese el valor a pagar");
-        String id1 = JOptionPane.showInputDialog("Ingrese el ID del Pasajero");
-        String id2 = JOptionPane.showInputDialog("Ingrese el ID del Conductor");
-        pagos.add(valor);
-        pagos.add(id1);
-        pagos.add(id2);
-        Component p = new Pago();
-        p.asignar(pagos);
-
-        String medioPago = JOptionPane.showInputDialog("Ingrese el medio de pago"
-                + "\n 1. Efectivo"
-                + "\n 2. PSE");
-        if (medioPago.equals("1")) {
-            ArrayList<String> efectivo = new ArrayList<>();
-            pago = new PagoEfectivo(p);
-            efectivo.add(valor);
-            efectivo.add("Pesos colombianos");
-            p.asignar(efectivo);
-            JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + p.pagar());
-        } else if (medioPago.equals("2")) {
-            pago = new PagoPSE(new Pago());
-            ArrayList<String> pse = new ArrayList<>();
-            String noCuentaP = JOptionPane.showInputDialog("Ingrese el numero de su cuenta");
-            String claveCuenta = JOptionPane.showInputDialog("Ingrese la clave de la cuenta");
-            String noCuentaD = JOptionPane.showInputDialog("Ingrese el numero de la cuenta del conductor");
-            pse.add(valor);
-            pse.add(noCuentaP);
-            pse.add(claveCuenta);
-            pse.add(noCuentaD);
-            System.out.print(pse.size());
-            pago.asignar(pse);
-            String alternate = "1";
-            String medPagAlt = "PSE";
-            do {
-                alternate = JOptionPane.showInputDialog("¿Desea pagar con " + medPagAlt + " con un medio de pago alternativo?"
-                        + "\n1. Si"
-                        + "\n2. No");
-                if (alternate.equals("2")) {
-                    break;
-                }
-                String medioAltPSE = JOptionPane.showInputDialog("Elija el medio de pago alternativo"
-                        + "\n1. Baloto"
-                        + "\n2. Tarjeta Credito");
-                switch (medioAltPSE) {
-                    case "1":
-                        medPagAlt = "Baloto";
-                        pago = new BalotoDecorator(pago);
-                        ArrayList<String> baloto = new ArrayList<>();
-                        String noConf = JOptionPane.showInputDialog("Ingrese el numero de confirmacion");
-                        baloto.add(valor);
-                        baloto.add(noCuentaP);
-                        baloto.add(claveCuenta);
-                        baloto.add(noCuentaD);
-                        baloto.add(noConf);
-                        System.out.println(baloto.size());
-                        pago.asignar(baloto);
-                        break;
-                    case "2":
-                        medPagAlt = "Tarjeta de Credito";
-                        pago = new CreditoDecorator(pago);
-                        ArrayList<String> credito = new ArrayList<>();
-                        String noTarj = JOptionPane.showInputDialog("Ingrese el numero de la tarjeta");
-                        String cvv = JOptionPane.showInputDialog("Ingrese el CVV");
-                        credito.add(valor);
-                        credito.add(noCuentaP);
-                        credito.add(claveCuenta);
-                        credito.add(noCuentaD);
-                        credito.add(noTarj);
-                        credito.add(cvv);
-
-                        pago.asignar(credito);
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
-                        break;
-                }
-                break;
-            } while (!alternate.equals("2"));
-            JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + pago.pagar());
-        }
-    }
 
 }
