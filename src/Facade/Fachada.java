@@ -27,8 +27,8 @@ import javax.swing.JOptionPane;
  */
 public class Fachada {
     
-    private final ArrayList<Ruta> rutas = new ArrayList<>();
-    private final ArrayList<Reserva> reservas = new ArrayList<>();
+    private ArrayList<Ruta> rutas = new ArrayList<>();
+    private ArrayList<Reserva> reservas = new ArrayList<>();
     private UsuarioFactory u = new UsuarioFactory();
     
     public Fachada(){
@@ -215,9 +215,9 @@ public class Fachada {
                 break;
             case "3":
                 Administrador a = new Administrador();
+                a.crear(correo, password);
                 Usuario admin = new AdministradorAdapter(a);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                admin.adicionar(correo, password);
                 u.crearUsuario(correo, admin);
                 break;
             default:
@@ -242,7 +242,7 @@ public class Fachada {
     public String iniciarSesion(String correo, String password){
         String fallido = "Fallido";
         IUsuario x = u.mostrarUsuario(correo);
-        if(x == null){
+        if(x.getCorreo() == null){
             JOptionPane.showMessageDialog(null, "No existe ese usuario");
         }
         else{
