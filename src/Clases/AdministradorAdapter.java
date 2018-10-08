@@ -31,9 +31,19 @@ public class AdministradorAdapter extends Usuario{
     public void modificar(String correo, String password) {
         this.admin.actualizar(correo, password);
     }
+    
+    @Override
+    public String getPassword(){
+        return this.admin.getPasswordAdmin();
+    }
+    
+    @Override
+    public String getCorreo(){
+        return this.admin.getCorreoAdmin();
+    }
 
     @Override
     public String toString() {
-        return "Correo: " + getCorreo() + " - Password: " + getPassword() + " - Tipo de Usuario: Administrador\n";
+        return "Correo: " + getCorreo() + " - Password: " + getPassword()+ " - Tipo de Usuario: Administrador\n";
     }
 }
