@@ -28,8 +28,8 @@ public class UsuarioFactory {
     }
     
     public void modificarUsuario(String correoBuscado, String correo, String password){
-        listaUsuarios.get(correo).setPassword(password);
-        listaUsuarios.get(correo).setCorreo(correo);
+        listaUsuarios.get(correoBuscado).setPassword(password);
+        listaUsuarios.get(correoBuscado).setCorreo(correo);
     }
 }
 

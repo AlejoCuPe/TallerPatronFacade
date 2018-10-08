@@ -29,6 +29,10 @@ public class Proxy implements IMenu{
         return instance;
     }
     
+    public void crearRegistro(String registro){
+        listaUsuarios.add(registro.split("-"));
+    }
+    
     @Override
     public String buscar(String usuario, String password){
 

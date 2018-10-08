@@ -7,13 +7,20 @@ package Facade;
 
 import Clases.Administrador;
 import Clases.AdministradorAdapter;
+import Clases.BalotoDecorator;
 import Clases.Calle;
 import Clases.Conductor;
+import Clases.CreditoDecorator;
+import Clases.Pago;
+import Clases.PagoEfectivo;
+import Clases.PagoPSE;
 import Clases.Pasajero;
+import Clases.Proxy;
 import Clases.Reserva;
 import Clases.Ruta;
 import Clases.Usuario;
 import Clases.UsuarioFactory;
+import Interfaces.Component;
 import Interfaces.Componente;
 import Interfaces.IUsuario;
 import java.text.ParseException;
@@ -36,7 +43,16 @@ public class Fachada {
     private int sesion;
 
     public Fachada() {
-        crearUsuario("1","A","B");
+        Usuario conductor = new Conductor();
+        conductor.adicionar("A", "B");
+        u.crearUsuario("A", conductor);
+        Usuario pasajero = new Pasajero();
+        pasajero.adicionar("C", "D");
+        u.crearUsuario("C", pasajero);
+        Administrador a = new Administrador();
+        Usuario admin = new AdministradorAdapter(a);
+        admin.adicionar("E", "F");  
+        u.crearUsuario("E", admin);
     }
 
     public static Fachada getInstance() {
@@ -210,24 +226,24 @@ public class Fachada {
     //Metodos Usuario    
     public void crearUsuario(String tipoUsuario, String correo, String password) {
         switch (tipoUsuario) {
+            case "1":
+                Usuario conductor = new Conductor();
+                conductor.adicionar(correo, password);
+                JOptionPane.showMessageDialog(null, "Conductor Creado Correctamente");
+                u.crearUsuario(correo, conductor);
+                break;
             case "2":
                 Usuario pasajero = new Pasajero();
                 pasajero.adicionar(correo, password);
                 u.crearUsuario(correo, pasajero);
-                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                break;
-            case "1":
-                Usuario conductor = new Conductor();
-                conductor.adicionar(correo, password);
-                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                u.crearUsuario(correo, conductor);
+                JOptionPane.showMessageDialog(null, "Pasajero Creado Correctamente");
                 break;
             case "3":
                 Administrador a = new Administrador();
                 Usuario admin = new AdministradorAdapter(a);
-                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 admin.adicionar(correo, password);
                 u.crearUsuario(correo, admin);
+                JOptionPane.showMessageDialog(null, "Administrador Creado Correctamente");
                 break;
             default:
                 break;
@@ -296,7 +312,6 @@ public class Fachada {
     }
 
     public String menu(String tipoUsuario) {
-        
         String menu = "";
         if (tipoUsuario.equals("Conductor")) {
             menu = "--- Ingresar Número Correspondiente ---\n"
@@ -316,25 +331,33 @@ public class Fachada {
                     + "2. Consultar Reserva\n"
                     + "3. Modificar Reserva\n"
                     + "4. Eliminar Reserva\n"
-                    + "5. Pagar Servicio"
+                    + "5. Pagar Servicio\n"
                     + "0. Salir";
         }
         if (tipoUsuario.equals("Administrador")) {
             menu = "--- Ingresar Número Correspondiente ---\n"
-                    + "1. Buscar Usuario\n"
-                    + "2. Modificar Usuario\n"
-                    + "3. Eliminar Usuario\n"
+                    + "1. Crear Usuario"
+                    + "2. Buscar Usuario\n"
+                    + "3. Modificar Usuario\n"
+                    + "4. Eliminar Usuario\n"
                     + "0. Salir";
         }
         return menu;
     }
 
-    public void menuConductor(int opcion) {
-        
-        int Opcion, Opcion1, cupos, tarifa, id, probar;
-        String correo = "", contraseña = "", tipoUsuario, nombreBuscado, nombreCalle, nombre, mostrar;
-        float[] origenCalle = new float[2];
-        float[] destinoCalle = new float[2];
+    public void llamarMenu(int opcion, String tipoU, String usuario, String password) {
+        if (tipoU.equals("Conductor")) {
+            menuConductor(opcion, usuario, password);
+        }
+        if (tipoU.equals("Pasajero")) {
+            menuPasajero(opcion, usuario, password);
+        }
+        if (tipoU.equals("Administrador")) {
+            menuAdministrador(opcion, usuario, password);
+        }
+    }
+
+    private void menuConductor(int opcion, String usuario, String password) {
         switch (opcion) {
             case 1:
                 String hora = JOptionPane.showInputDialog("Ingrese la hora como hh:mm");
@@ -342,25 +365,24 @@ public class Fachada {
                 String destino = JOptionPane.showInputDialog("Ingrese el destino");
                 Date date = null;
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                String dateInString = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
+                String fecha = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
                 try {
-                    date = formatter.parse(dateInString);
+                    date = formatter.parse(fecha);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
-                tarifa = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
-
-                crearRuta(hora, origen, destino, date, cupos, tarifa, (Usuario) buscarUsuario(correo, contraseña));
+                int cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
+                int tarifa = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
+                crearRuta(hora, origen, destino, date, cupos, tarifa, (Usuario) buscarUsuario(usuario, password));
                 int elegir = 0;
                 do {
                     elegir = Integer.parseInt(JOptionPane.showInputDialog("1. Añadir una calle a la ruta.\n"
                             + "0. Terminar la creación."));
                     switch (elegir) {
                         case 1:
-                            nombreCalle = JOptionPane.showInputDialog("Ingrese el nombre de la calle");
-                            origenCalle = new float[2];
-                            destinoCalle = new float[2];
+                            String nombreCalle = JOptionPane.showInputDialog("Ingrese el nombre de la calle");
+                            float[] origenCalle = new float[2];
+                            float[] destinoCalle = new float[2];
                             origenCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en x"));
                             origenCalle[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en y"));
                             destinoCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el destino de la calle en x"));
@@ -378,195 +400,411 @@ public class Fachada {
                 } while (elegir != 0);
                 JOptionPane.showMessageDialog(null, "Ruta Creada");
                 break;
-
-            //Consultar Ruta
             case 2:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar2 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar2)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    destino = JOptionPane.showInputDialog("Ingrese el destino");
-                    date = null;
-                    formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    dateInString = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
+                    String destino2 = JOptionPane.showInputDialog("Ingrese el destino");
+                    Date date2 = null;
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+                    String fecha2 = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
                     try {
-                        date = formatter.parse(dateInString);
+                        date2 = formatter2.parse(fecha2);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    hora = JOptionPane.showInputDialog("Ingrese la fecha como hh:mm");
-                    mostrar = mostrarRuta(destino, date, hora);
-                    if (mostrar.equals("No se ha encontrado la ruta")) {
+                    String hora2 = JOptionPane.showInputDialog("Ingrese la fecha como hh:mm");
+                    mostrar2 = mostrarRuta(destino2, date2, hora2);
+                    if (mostrar2.equals("No se ha encontrado la ruta")) {
                         JOptionPane.showMessageDialog(null, "No se ha encontrado la ruta");
                     } else {
-                        JOptionPane.showMessageDialog(null, mostrar);
+                        JOptionPane.showMessageDialog(null, mostrar2);
                     }
                     break;
                 }
-
-            //Modificar Ruta
             case 3:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar3 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar3)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el número de la ruta a modificar: \n"
-                            + mostrar));
-                    probar = verificarRuta(id);
+                    int id3 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el número de la ruta a modificar: \n"
+                            + mostrar3));
+                    int probar = verificarRuta(id3);
                     if (probar == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        hora = JOptionPane.showInputDialog("Ingrese la fecha como hh:mm");
-                        date = null;
-                        formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        dateInString = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
+                        String hora3 = JOptionPane.showInputDialog("Ingrese la fecha como hh:mm");
+                        Date date3 = null;
+                        SimpleDateFormat formatter3 = new SimpleDateFormat("dd/MM/yyyy");
+                        String dateInString3 = JOptionPane.showInputDialog("Ingrese la fecha como dd/MM/yyyy");
                         try {
-                            date = formatter.parse(dateInString);
+                            date3 = formatter3.parse(dateInString3);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         };
-                        cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
-                        tarifa = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
-                        modificarRuta(id, hora, date, cupos, tarifa);
+                        int cupos3 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
+                        int tarifa3 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
+                        modificarRuta(id3, hora3, date3, cupos3, tarifa3);
                         JOptionPane.showMessageDialog(null, "Ruta Modificada");
                         break;
                     }
                 }
-
-            //Eliminar Ruta
             case 4:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar4 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar4)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el número de la ruta a eliminar\n"
-                            + mostrar));
-                    probar = verificarRuta(id);
-                    if (probar == 0) {
+                    int id4 = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el número de la ruta a eliminar\n"
+                            + mostrar4));
+                    int probar4 = verificarRuta(id4);
+                    if (probar4 == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        eliminarRuta(id);
+                        eliminarRuta(id4);
                         JOptionPane.showMessageDialog(null, "Ruta Eliminada");
                         break;
                     }
                 }
-
-            //Crear Calle
             case 5:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar5 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar5)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta a la que desea añadir la calle: \n\n"
-                            + mostrar));
-                    probar = verificarRuta(id);
-                    if (probar == 0) {
+                    int id5 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta a la que desea añadir la calle: \n\n"
+                            + mostrar5));
+                    int probar5 = verificarRuta(id5);
+                    if (probar5 == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        nombreCalle = JOptionPane.showInputDialog("Ingrese el nombre de la calle");
-                        origenCalle[1] = 1;
-                        origenCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en x"));
-                        origenCalle[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en y"));
-                        destinoCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el destino de la calle en x"));
-                        destinoCalle[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el destino de la calle en y"));
-                        crearCalle(buscarRuta1(id), nombreCalle, origenCalle, destinoCalle);
+                        String nombreCalle5 = JOptionPane.showInputDialog("Ingrese el nombre de la calle");
+                        float[] origenCalle5 = new float[2];
+                        float[] destinoCalle5 = new float[2];
+                        origenCalle5[1] = 1;
+                        origenCalle5[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en x"));
+                        origenCalle5[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el origen de la calle en y"));
+                        destinoCalle5[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el destino de la calle en x"));
+                        destinoCalle5[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el destino de la calle en y"));
+                        crearCalle(buscarRuta1(id5), nombreCalle5, origenCalle5, destinoCalle5);
                         JOptionPane.showMessageDialog(null, "Calle creada y añadida");
                         break;
                     }
                 }
-
-            //Consultar Calle
             case 6:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar6 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar6)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta de la que desea mostrar las calles: \n \n"
-                            + mostrar));
-                    probar = verificarRuta(id);
-                    if (probar == 0) {
+                    int id6 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta de la que desea mostrar las calles: \n \n"
+                            + mostrar6));
+                    int probar6 = verificarRuta(id6);
+                    if (probar6 == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        JOptionPane.showMessageDialog(null, mostrarCalle(buscarRuta1(id)));
+                        JOptionPane.showMessageDialog(null, mostrarCalle(buscarRuta1(id6)));
                         break;
                     }
                 }
-
-            //Modificar Calle
             case 7:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar7 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar7)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que contiene la calle que desea modificar:\n \n"
-                            + mostrar));
-                    probar = verificarRuta(id);
-                    if (probar == 0) {
+                    int id7 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que contiene la calle que desea modificar:\n \n"
+                            + mostrar7));
+                    int probar7 = verificarRuta(id7);
+                    if (probar7 == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        mostrar = "";
-                        mostrar = mostrarCalle(buscarRuta1(id));
-                        nombreBuscado = JOptionPane.showInputDialog("Ingrese el nombre de la calle a modificar: \n\n" + mostrar);
-                        probar = verificarCalle(id, nombreBuscado);
-                        if (probar == 0) {
+                        mostrar7 = "";
+                        mostrar7 = mostrarCalle(buscarRuta1(id7));
+                        String nombreBuscado7 = JOptionPane.showInputDialog("Ingrese el nombre de la calle a modificar: \n\n" + mostrar7);
+                        probar7 = verificarCalle(id7, nombreBuscado7);
+                        if (probar7 == 0) {
                             JOptionPane.showMessageDialog(null, "No existe dicha calle");
                         } else {
-                            nombre = JOptionPane.showInputDialog("Ingrese el nombre nuevo de la calle ");
-                            origenCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo origen de la calle en x"));
-                            origenCalle[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo origen de la calle en y"));
-                            destinoCalle[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo destino de la calle en x"));
-                            destinoCalle[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo destino de la calle en y"));
-                            modificarCalle(buscarRuta1(id), nombreBuscado, nombre, origenCalle, destinoCalle);
+                            String nombre7 = JOptionPane.showInputDialog("Ingrese el nombre nuevo de la calle ");
+                            float[] origenCalle7 = new float[2];
+                            float[] destinoCalle7 = new float[2];
+                            origenCalle7[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo origen de la calle en x"));
+                            origenCalle7[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo origen de la calle en y"));
+                            destinoCalle7[0] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo destino de la calle en x"));
+                            destinoCalle7[1] = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo destino de la calle en y"));
+                            modificarCalle(buscarRuta1(id7), nombreBuscado7, nombre7, origenCalle7, destinoCalle7);
                             JOptionPane.showMessageDialog(null, "Calle modificada");
                             break;
                         }
                     }
                 }
-
-            //Eliminar Calle    
             case 8:
-                mostrar = mostrarRutas();
-                if ("Rutas \n".equals(mostrar)) {
+                String mostrar8 = mostrarRutas();
+                if ("Rutas \n".equals(mostrar8)) {
                     JOptionPane.showMessageDialog(null, "No hay rutas creadas");
                     break;
                 } else {
-                    id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que contiene la calle que desea modificar: \n\n"
-                            + mostrar));
-                    probar = verificarRuta(id);
-                    if (probar == 0) {
+                    int id8 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que contiene la calle que desea modificar: \n\n"
+                            + mostrar8));
+                    int probar8 = verificarRuta(id8);
+                    if (probar8 == 0) {
                         JOptionPane.showMessageDialog(null, "No existe dicha ruta");
                         break;
                     } else {
-                        mostrar = "";
-                        mostrar = mostrarCalle(buscarRuta1(id));
-                        nombreBuscado = JOptionPane.showInputDialog("Ingrese el nombre de la calle a eliminar: \n\n" + mostrar);
-                        probar = verificarCalle(id, nombreBuscado);
-                        if (probar == 0) {
+                        mostrar8 = "";
+                        mostrar8 = mostrarCalle(buscarRuta1(id8));
+                        String nombreBuscado8 = JOptionPane.showInputDialog("Ingrese el nombre de la calle a eliminar: \n\n" + mostrar8);
+                        probar8 = verificarCalle(id8, nombreBuscado8);
+                        if (probar8 == 0) {
                             JOptionPane.showMessageDialog(null, "No existe dicha calle");
                         } else {
-                            eliminarCalle(buscarRuta1(id), nombreBuscado);
+                            eliminarCalle(buscarRuta1(id8), nombreBuscado8);
                             JOptionPane.showMessageDialog(null, "Calle eliminada");
                             break;
                         }
                     }
                 }
-
             case 0:
                 JOptionPane.showMessageDialog(null, "Hasta luego conductor.");
 
             default:
                 JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
+
+        }
+    }
+
+    private void menuPasajero(int opcion, String usuario, String password) {
+        switch (opcion) {
+            case 1:
+                String mostrar = mostrarRutas();
+                if ("Rutas \n".equals(mostrar)) {
+                    JOptionPane.showMessageDialog(null, "No hay rutas creadas");
+                    break;
+                } else {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la ruta que desea reservar: \n\n"
+                            + mostrar));
+                    int probar = verificarRuta(id);
+                    if (probar == 0) {
+                        JOptionPane.showMessageDialog(null, "No existe dicha ruta");
+                        break;
+                    } else {
+                        int cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar"));
+                        crearReserva(cupos, buscarRuta1(id), (Usuario) buscarUsuario(usuario, password));
+                        JOptionPane.showMessageDialog(null, "Reserva creada");
+                        break;
+                    }
+                }
+            case 2:
+                String mostrar2 = mostrarReserva();
+                if ("Reserva \n".equals(mostrar2)) {
+                    JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, mostrar2);
+                    break;
+                }
+            case 3:
+                String mostrar3 = mostrarReserva();
+                if ("Reserva \n".equals(mostrar3)) {
+                    JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                    break;
+                } else {
+                    int id3 = Integer.parseInt(JOptionPane.showInputDialog("Selecciones la reserva que desea modificar: \n"
+                            + mostrar3));
+                    int probar3 = verificarReserva(id3);
+                    if (probar3 == 0) {
+                        JOptionPane.showMessageDialog(null, "No existe dicha reserva");
+                        break;
+                    } else {
+                        int cupos3 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar nuevamente"));
+                        modificarReserva(id3, cupos3);
+                        JOptionPane.showMessageDialog(null, "Reserva modificada");
+                        break;
+                    }
+                }
+            case 4:
+                String mostrar4 = mostrarReserva();
+                if ("Reserva \n".equals(mostrar4)) {
+                    JOptionPane.showMessageDialog(null, "No hay reservas creadas");
+                    break;
+                } else {
+                    int id4 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione la reserva que desea eliminar: \n\n"
+                            + mostrar4));
+                    int probar4 = verificarReserva(id4);
+                    if (probar4 == 0) {
+                        JOptionPane.showMessageDialog(null, "No existe dicha reserva");
+                        break;
+                    } else {
+                        eliminarReserva(id4);
+                        JOptionPane.showMessageDialog(null, "Reserva eliminada");
+                        break;
+                    }
+                }
+            case 5:
+                ArrayList<String> pagos = new ArrayList<>();
+                Component pago;
+                String valor = JOptionPane.showInputDialog("Ingrese el valor a pagar");
+                String id1 = JOptionPane.showInputDialog("Ingrese el ID del Pasajero");
+                String id2 = JOptionPane.showInputDialog("Ingrese el ID del Conductor");
+                pagos.add(valor);
+                pagos.add(id1);
+                pagos.add(id2);
+                Component p = new Pago();
+                p.asignar(pagos);
+
+                String medioPago = JOptionPane.showInputDialog("Ingrese el medio de pago"
+                        + "\n 1. Efectivo"
+                        + "\n 2. PSE");
+                if (medioPago.equals("1")) {
+                    ArrayList<String> efectivo = new ArrayList<>();
+                    pago = new PagoEfectivo(p);
+                    efectivo.add(valor);
+                    efectivo.add("Pesos colombianos");
+                    p.asignar(efectivo);
+                    JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + p.pagar());
+                } else if (medioPago.equals("2")) {
+                    pago = new PagoPSE(new Pago());
+                    ArrayList<String> pse = new ArrayList<>();
+                    String noCuentaP = JOptionPane.showInputDialog("Ingrese el numero de su cuenta");
+                    String claveCuenta = JOptionPane.showInputDialog("Ingrese la clave de la cuenta");
+                    String noCuentaD = JOptionPane.showInputDialog("Ingrese el numero de la cuenta del conductor");
+                    pse.add(valor);
+                    pse.add(noCuentaP);
+                    pse.add(claveCuenta);
+                    pse.add(noCuentaD);
+                    System.out.print(pse.size());
+                    pago.asignar(pse);
+                    String alternate = "1";
+                    String medPagAlt = "PSE";
+                    do {
+                        alternate = JOptionPane.showInputDialog("¿Desea pagar con " + medPagAlt + " con un medio de pago alternativo?"
+                                + "\n1. Si"
+                                + "\n2. No");
+                        if (alternate.equals("2")) {
+                            break;
+                        }
+                        String medioAltPSE = JOptionPane.showInputDialog("Elija el medio de pago alternativo"
+                                + "\n1. Baloto"
+                                + "\n2. Tarjeta Credito");
+                        switch (medioAltPSE) {
+                            case "1":
+                                medPagAlt = "Baloto";
+                                pago = new BalotoDecorator(pago);
+                                ArrayList<String> baloto = new ArrayList<>();
+                                String noConf = JOptionPane.showInputDialog("Ingrese el numero de confirmacion");
+                                baloto.add(valor);
+                                baloto.add(noCuentaP);
+                                baloto.add(claveCuenta);
+                                baloto.add(noCuentaD);
+                                baloto.add(noConf);
+                                System.out.println(baloto.size());
+                                pago.asignar(baloto);
+                                break;
+                            case "2":
+                                medPagAlt = "Tarjeta de Credito";
+                                pago = new CreditoDecorator(pago);
+                                ArrayList<String> credito = new ArrayList<>();
+                                String noTarj = JOptionPane.showInputDialog("Ingrese el numero de la tarjeta");
+                                String cvv = JOptionPane.showInputDialog("Ingrese el CVV");
+                                credito.add(valor);
+                                credito.add(noCuentaP);
+                                credito.add(claveCuenta);
+                                credito.add(noCuentaD);
+                                credito.add(noTarj);
+                                credito.add(cvv);
+
+                                pago.asignar(credito);
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
+                                break;
+                        }
+                        break;
+                    } while (!alternate.equals("2"));
+                    JOptionPane.showMessageDialog(null, "PAGO REALIZADO CON EXITO\n" + pago.pagar());
+                }
+            case 0:
+                JOptionPane.showMessageDialog(null, "Hasta luego pasajero");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
+                break;
+
+        }
+    }
+
+    private void menuAdministrador(int opcion, String usuario, String password) {
+        switch (opcion) {
+            case 1:
+                String registro = "";
+                usuario = JOptionPane.showInputDialog("Ingrese el correo del usuario");
+                registro += usuario;
+                password = JOptionPane.showInputDialog("Ingrese la contraseña del usuario");
+                registro += "-"+password;
+                String tipoU = JOptionPane.showInputDialog("Ingrese el número correspondiente al tipo de usuario\n"
+                        + "1. Conductor\n"
+                        + "2. Pasajero\n"
+                        + "3. Administrador");
+                if(tipoU.equals("1")){
+                    registro += "-Conductor";
+                }else if(tipoU.equals("2")){
+                    registro += "-Pasajero";
+                }else if(tipoU.equals("3")){
+                    registro += "-Administrador";
+                }
+                Proxy.getInstance().crearRegistro(registro);
+                crearUsuario(tipoU, usuario, password);
+                break;
+            case 2:
+                String correo = JOptionPane.showInputDialog("Ingrese el correo del usuario");
+                Usuario user = (Usuario) u.mostrarUsuario(correo);
+                if (user == null) {
+                    JOptionPane.showMessageDialog(null, "No existe ese usuario");
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se encontro el usuario\n"
+                            + "Correo: " + user.getCorreo() + "\n"
+                            + "Contraseña: " + user.getPassword() + "\n"
+                            + "Tipo de Usuario: " + Proxy.getInstance().buscar(correo, user.getPassword()));
+                }
+                break;
+            case 3:
+                usuario = JOptionPane.showInputDialog("Ingrese el correo del usuario a modificar");
+                Usuario user3 = (Usuario) u.mostrarUsuario(usuario);
+                if (user3 == null) {
+                    JOptionPane.showMessageDialog(null, "No existe ese usuario");
+                    break;
+                } else {
+                    String nemail = JOptionPane.showInputDialog("Ingrese el nuevo correo \n"
+                            + "Correo: " + user3.getCorreo() + "\n"
+                            + "Contraseña: " + user3.getPassword() + "\n");
+                    String npass = JOptionPane.showInputDialog("Ingrese la nueva contraseña \n"
+                            + "Correo: " + nemail + "\n"
+                            + "Contraseña: " + user3.getPassword() + "\n");
+                    u.modificarUsuario(usuario, nemail, npass);
+                    JOptionPane.showMessageDialog(null, "Usuario modificado");
+                }
+                break;
+            case 4:
+                usuario = JOptionPane.showInputDialog("Ingrese el correo del usuario a eliminar");
+                u.eliminarUsuario(usuario);
+            case 0:
+                JOptionPane.showMessageDialog(null, "Hasta luego administrador");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
+                break;
+                
+                
         }
     }
 }
