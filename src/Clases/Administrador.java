@@ -14,20 +14,37 @@ public class Administrador {
     private String correoAdmin;
     private String passwordAdmin;
     
+    
     public Administrador(){
         
     }
+
+    public String getCorreoAdmin() {
+        return correoAdmin;
+    }
+
+    public void setCorreoAdmin(String correoAdmin) {
+        this.correoAdmin = correoAdmin;
+    }
+
+    public String getPasswordAdmin() {
+        return passwordAdmin;
+    }
+
+    public void setPasswordAdmin(String passwordAdmin) {
+        this.passwordAdmin = passwordAdmin;
+    }
     
     public void crear(String correo, String password){
-        this.passwordAdmin = password;
-        this.correoAdmin = correo;
+        this.setCorreoAdmin(correo);
+        this.setPasswordAdmin(password);
     }
     
     public String leer(String correo){
-        return this.passwordAdmin;
+        return this.getPasswordAdmin();
     }
     
     public void actualizar(String correo, String password){
-        this.passwordAdmin = password;
+        this.setPasswordAdmin(password);
     }
 }

@@ -16,7 +16,7 @@ public class AdministradorAdapter extends Usuario{
         super();
         this.admin = admin;
     }
-
+    
     @Override
     public void adicionar(String correo, String password) {
         admin.crear(correo, password);
