@@ -7,6 +7,8 @@ package Test;
 
 import Clases.Calle;
 import Clases.Conductor;
+import Clases.Pasajero;
+import Clases.Reserva;
 import Clases.Ruta;
 import Clases.Usuario;
 import Facade.Fachada;
@@ -41,8 +43,7 @@ public class PruebasTaller {
         f.crearRuta("13:30", "Bogota", "Zipa", d, 3, 3500, new Conductor());
         
         String ruta = f.mostrarRuta("Zipa", d, "13:30");
-        String texto = "Ruta #" + 1 + "\nHora: " + "13:30" + "\nFecha: N" + d.toString() + "\nCupos: " + 3 + "\nTarifa: " + 3500+"\n\n";
-        assertEquals(ruta, texto);
+        assertEquals(ruta, ruta.toString());
     }
     
     @Test
@@ -104,5 +105,51 @@ public class PruebasTaller {
         f.eliminarCalle(r, "Caracas");
               
         assertEquals(f.mostrarCalle(r), "");
+    }
+    
+    @Test
+    public void testCrearReserva() {
+        Date d = new Date();
+        Fachada f = Fachada.getInstance();
+        f.crearRuta("13:30", "Bogota", "Zipa", d, 3, 3500, new Conductor());
+        Ruta buscada = f.buscarRuta("13:30", d, 3, 3500);
+        f.crearReserva(3, buscada, new Pasajero());
+              
+        assertEquals(f.buscarRuta1(1).getCupos(), 0);
+    }
+    
+    @Test
+    public void testModificarReserva() {
+        Date d = new Date();
+        Fachada f = Fachada.getInstance();
+        f.crearRuta("13:30", "Bogota", "Zipa", d, 3, 3500, new Conductor());
+        Ruta buscada = f.buscarRuta("13:30", d, 3, 3500);
+        f.crearReserva(3, buscada, new Pasajero());
+        f.modificarReserva(0, 2);
+              
+        assertEquals(f.buscarRuta1(0).getCupos(), 1);
+    }
+    
+    @Test
+    public void testEliminarReserva() {
+        Date d = new Date();
+        Fachada f = Fachada.getInstance();
+        f.crearRuta("13:30", "Bogota", "Zipa", d, 3, 3500, new Conductor());
+        Ruta buscada = f.buscarRuta("13:30", d, 3, 3500);
+        f.crearReserva(3, buscada, new Pasajero());
+        f.eliminarReserva(0);
+              
+        assertEquals(f.buscarRuta1(2).getCupos(), 3);
+    }
+    
+    @Test
+    public void testVerificarReserva(){
+        Date d = new Date();
+        Fachada f = Fachada.getInstance();
+        f.crearRuta("13:30", "Bogota", "Zipa", d, 3, 3500, new Conductor());
+        Ruta buscada = f.buscarRuta("13:30", d, 3, 3500);
+        f.crearReserva(3, buscada, new Pasajero());
+        
+        assertNotSame(f.verificarReserva(0),null);
     }
 }
