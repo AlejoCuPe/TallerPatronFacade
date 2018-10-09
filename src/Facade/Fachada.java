@@ -35,9 +35,16 @@ import javax.swing.JOptionPane;
  * @author alejo
  */
 public class Fachada {
+<<<<<<< HEAD
     private ArrayList<Ruta> rutas = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<>();
     private static Fachada instance;
+=======
+
+    private static Fachada instance;
+    private final ArrayList<Ruta> rutas = new ArrayList<>();
+    private final ArrayList<Reserva> reservas = new ArrayList<>();
+>>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
     private UsuarioFactory u = new UsuarioFactory();
     private int sesion;
 
@@ -50,7 +57,7 @@ public class Fachada {
         u.crearUsuario("C", pasajero);
         Administrador a = new Administrador();
         Usuario admin = new AdministradorAdapter(a);
-        admin.adicionar("E", "F");  
+        admin.adicionar("E", "F");
         u.crearUsuario("E", admin);
     }
 
@@ -241,6 +248,11 @@ public class Fachada {
                 Administrador a = new Administrador();
                 a.crear(correo, password);
                 Usuario admin = new AdministradorAdapter(a);
+<<<<<<< HEAD
+=======
+                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
+                admin.adicionar(correo, password);
+>>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
                 u.crearUsuario(correo, admin);
                 JOptionPane.showMessageDialog(null, "Administrador Creado Correctamente");
                 break;
@@ -265,6 +277,7 @@ public class Fachada {
 
     public boolean iniciarSesion(String correo, String password, int sesion) {
         IUsuario x = u.mostrarUsuario(correo);
+<<<<<<< HEAD
         if (x == null) {
             JOptionPane.showMessageDialog(null, "No existe ese usuario");
             return false;
@@ -272,11 +285,24 @@ public class Fachada {
             if (x.getPassword().equals(password)) {
                 JOptionPane.showMessageDialog(null, "Sesión Iniciada");
                 return true;
+=======
+        boolean booleano = false;
+        if (x.getCorreo() == null) {
+            if (x == null) {
+                JOptionPane.showMessageDialog(null, "No existe ese usuario");
+                booleano = false;
+>>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
             } else {
-                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
-                return false;
+                if (x.getPassword().equals(password)) {
+                    JOptionPane.showMessageDialog(null, "Sesión Iniciada");
+                    booleano = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
+                    booleano = false;
+                }
             }
         }
+        return booleano;
     }
 
     public IUsuario buscarUsuario(String correo, String password) {
@@ -748,16 +774,16 @@ public class Fachada {
                 usuario = JOptionPane.showInputDialog("Ingrese el correo del usuario");
                 registro += usuario;
                 password = JOptionPane.showInputDialog("Ingrese la contraseña del usuario");
-                registro += "-"+password;
+                registro += "-" + password;
                 String tipoU = JOptionPane.showInputDialog("Ingrese el número correspondiente al tipo de usuario\n"
                         + "1. Conductor\n"
                         + "2. Pasajero\n"
                         + "3. Administrador");
-                if(tipoU.equals("1")){
+                if (tipoU.equals("1")) {
                     registro += "-Conductor";
-                }else if(tipoU.equals("2")){
+                } else if (tipoU.equals("2")) {
                     registro += "-Pasajero";
-                }else if(tipoU.equals("3")){
+                } else if (tipoU.equals("3")) {
                     registro += "-Administrador";
                 }
                 Proxy.getInstance().crearRegistro(registro);
@@ -802,6 +828,10 @@ public class Fachada {
             default:
                 JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
                 break;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
         }
     }
 }
