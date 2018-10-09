@@ -27,6 +27,7 @@ public class Pasajero extends Usuario{
 
     @Override
     public void modificar(String correo, String password) {
+        this.setCorreo(correo);
         this.setPassword(password);
     }
 

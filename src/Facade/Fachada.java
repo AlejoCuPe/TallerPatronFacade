@@ -230,14 +230,12 @@ public class Fachada {
             case "1":
                 Usuario conductor = new Conductor();
                 conductor.adicionar(correo, password);
-                JOptionPane.showMessageDialog(null, "Conductor Creado Correctamente");
                 u.crearUsuario(correo, conductor);
                 break;
             case "2":
                 Usuario pasajero = new Pasajero();
                 pasajero.adicionar(correo, password);
                 u.crearUsuario(correo, pasajero);
-                JOptionPane.showMessageDialog(null, "Pasajero Creado Correctamente");
                 break;
             case "3":
                 Administrador a = new Administrador();
@@ -283,10 +281,18 @@ public class Fachada {
         return booleano;
     }
 
-    public IUsuario buscarUsuario(String correo, String password) {
+    public IUsuario buscarUsuario(String correo) {
         IUsuario encontrado = null;
         encontrado = u.mostrarUsuario(correo);
         return encontrado;
+    }
+    
+    public void modificarUsuario(String correo1, String correoModificar, String password) {
+        u.modificarUsuario(correo1, correoModificar, password);
+    }
+    
+    public void eliminarUsuario(String correo){
+        u.eliminarUsuario(correo);
     }
 
     public Ruta buscarRuta(String hora, Date fecha, int cupos, int tarifa) {
@@ -376,7 +382,7 @@ public class Fachada {
                 }
                 int cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de la ruta"));
                 int tarifa = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la tarifa de la ruta"));
-                crearRuta(hora, origen, destino, date, cupos, tarifa, (Usuario) buscarUsuario(usuario, password));
+                crearRuta(hora, origen, destino, date, cupos, tarifa, (Usuario) buscarUsuario(usuario));
                 int elegir = 0;
                 do {
                     elegir = Integer.parseInt(JOptionPane.showInputDialog("1. Añadir una calle a la ruta.\n"
@@ -601,7 +607,7 @@ public class Fachada {
                         break;
                     } else {
                         int cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos que desea reservar"));
-                        crearReserva(cupos, buscarRuta1(id), (Usuario) buscarUsuario(usuario, password));
+                        crearReserva(cupos, buscarRuta1(id), (Usuario) buscarUsuario(usuario));
                         JOptionPane.showMessageDialog(null, "Reserva creada");
                         break;
                     }

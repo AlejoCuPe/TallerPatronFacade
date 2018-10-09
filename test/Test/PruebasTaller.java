@@ -7,6 +7,7 @@ package Test;
 
 import Clases.Calle;
 import Clases.Conductor;
+import Clases.Pasajero;
 import Clases.Ruta;
 import Clases.Usuario;
 import Facade.Fachada;
@@ -104,5 +105,35 @@ public class PruebasTaller {
         f.eliminarCalle(r, "Caracas");
               
         assertEquals(f.mostrarCalle(r), "");
+    }
+    
+    @Test
+    public void testcrearUsuario() {
+        Fachada f = Fachada.getInstance();
+        f.crearUsuario("2", "Anaximandro", "Beta");
+        Usuario u = (Usuario)f.buscarUsuario("Anaximandro");
+        
+        assertEquals(u.getCorreo(), "Anaximandro");
+    }
+    
+    @Test
+    public void testModificarUsuario(){
+        Fachada f = Fachada.getInstance();
+        f.crearUsuario("2", "Manolito", "Ningun");
+        System.out.println(f.buscarUsuario("Manolito").toString());
+        f.modificarUsuario("Manolito", "Usted", "Informatica");
+        Usuario u = (Usuario)f.buscarUsuario("Usted");
+        
+        assertEquals(u.getPassword(), "Informatica");
+    }
+    
+    @Test
+    public void testEliminarUsuario() {
+        Fachada f = Fachada.getInstance();
+        f.crearUsuario("2", "J", "H");
+        
+        f.eliminarUsuario("J");
+        Usuario u = (Usuario)f.buscarUsuario("J");
+        assertEquals(u, null);
     }
 }
