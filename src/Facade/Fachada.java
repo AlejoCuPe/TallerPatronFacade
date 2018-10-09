@@ -35,16 +35,9 @@ import javax.swing.JOptionPane;
  * @author alejo
  */
 public class Fachada {
-<<<<<<< HEAD
-    
     private ArrayList<Ruta> rutas = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<>();
-=======
-
     private static Fachada instance;
-    private final ArrayList<Ruta> rutas = new ArrayList<>();
-    private final ArrayList<Reserva> reservas = new ArrayList<>();
->>>>>>> a5a7939cff89579aaa0068c54b95b1553615df63
     private UsuarioFactory u = new UsuarioFactory();
     private int sesion;
 
@@ -248,11 +241,6 @@ public class Fachada {
                 Administrador a = new Administrador();
                 a.crear(correo, password);
                 Usuario admin = new AdministradorAdapter(a);
-<<<<<<< HEAD
-                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-=======
-                admin.adicionar(correo, password);
->>>>>>> a5a7939cff89579aaa0068c54b95b1553615df63
                 u.crearUsuario(correo, admin);
                 JOptionPane.showMessageDialog(null, "Administrador Creado Correctamente");
                 break;
@@ -277,11 +265,7 @@ public class Fachada {
 
     public boolean iniciarSesion(String correo, String password, int sesion) {
         IUsuario x = u.mostrarUsuario(correo);
-<<<<<<< HEAD
-        if(x.getCorreo() == null){
-=======
         if (x == null) {
->>>>>>> a5a7939cff89579aaa0068c54b95b1553615df63
             JOptionPane.showMessageDialog(null, "No existe ese usuario");
             return false;
         } else {
@@ -295,7 +279,7 @@ public class Fachada {
         }
     }
 
-    public IUsuario buscarUsuario(String correo, String contraseña) {
+    public IUsuario buscarUsuario(String correo, String password) {
         IUsuario encontrado = null;
         encontrado = u.mostrarUsuario(correo);
         return encontrado;
@@ -351,7 +335,7 @@ public class Fachada {
         }
         if (tipoUsuario.equals("Administrador")) {
             menu = "--- Ingresar Número Correspondiente ---\n"
-                    + "1. Crear Usuario"
+                    + "1. Crear Usuario\n"
                     + "2. Buscar Usuario\n"
                     + "3. Modificar Usuario\n"
                     + "4. Eliminar Usuario\n"
@@ -590,10 +574,10 @@ public class Fachada {
                 }
             case 0:
                 JOptionPane.showMessageDialog(null, "Hasta luego conductor.");
-
+                break;
             default:
                 JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
-
+                break;
         }
     }
 
@@ -818,8 +802,6 @@ public class Fachada {
             default:
                 JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
                 break;
-                
-                
         }
     }
 }

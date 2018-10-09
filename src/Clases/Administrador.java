@@ -17,22 +17,6 @@ public class Administrador {
     public Administrador(){
         
     }
-
-    public String getCorreoAdmin() {
-        return correoAdmin;
-    }
-
-    public void setCorreoAdmin(String correoAdmin) {
-        this.correoAdmin = correoAdmin;
-    }
-
-    public String getPasswordAdmin() {
-        return passwordAdmin;
-    }
-
-    public void setPasswordAdmin(String passwordAdmin) {
-        this.passwordAdmin = passwordAdmin;
-    }
     
     public void crear(String correo, String password){
         this.passwordAdmin = password;
@@ -44,6 +28,6 @@ public class Administrador {
     }
     
     public void actualizar(String correo, String password){
-        this.setPasswordAdmin(password);
+        this.passwordAdmin = password;
     }
 }

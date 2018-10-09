@@ -24,8 +24,6 @@ abstract public class Usuario implements IUsuario{
         this.password = password;
     }
     
-    
-    
     @Override
     public abstract void adicionar(String correo, String password);
     @Override
