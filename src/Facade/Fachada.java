@@ -35,16 +35,10 @@ import javax.swing.JOptionPane;
  * @author alejo
  */
 public class Fachada {
-<<<<<<< HEAD
+
     private ArrayList<Ruta> rutas = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<>();
     private static Fachada instance;
-=======
-
-    private static Fachada instance;
-    private final ArrayList<Ruta> rutas = new ArrayList<>();
-    private final ArrayList<Reserva> reservas = new ArrayList<>();
->>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
     private UsuarioFactory u = new UsuarioFactory();
     private int sesion;
 
@@ -248,11 +242,8 @@ public class Fachada {
                 Administrador a = new Administrador();
                 a.crear(correo, password);
                 Usuario admin = new AdministradorAdapter(a);
-<<<<<<< HEAD
-=======
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 admin.adicionar(correo, password);
->>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
                 u.crearUsuario(correo, admin);
                 JOptionPane.showMessageDialog(null, "Administrador Creado Correctamente");
                 break;
@@ -275,31 +266,16 @@ public class Fachada {
         return probar;
     }
 
-    public boolean iniciarSesion(String correo, String password, int sesion) {
+    public int iniciarSesion(String correo, String password, int sesion) {
         IUsuario x = u.mostrarUsuario(correo);
-<<<<<<< HEAD
+        int booleano = 0;
         if (x == null) {
             JOptionPane.showMessageDialog(null, "No existe ese usuario");
-            return false;
+            booleano = 0;
         } else {
             if (x.getPassword().equals(password)) {
                 JOptionPane.showMessageDialog(null, "Sesión Iniciada");
-                return true;
-=======
-        boolean booleano = false;
-        if (x.getCorreo() == null) {
-            if (x == null) {
-                JOptionPane.showMessageDialog(null, "No existe ese usuario");
-                booleano = false;
->>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
-            } else {
-                if (x.getPassword().equals(password)) {
-                    JOptionPane.showMessageDialog(null, "Sesión Iniciada");
-                    booleano = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
-                    booleano = false;
-                }
+                booleano = 1;
             }
         }
         return booleano;
@@ -828,10 +804,6 @@ public class Fachada {
             default:
                 JOptionPane.showMessageDialog(null, "Ingrese una opción valida");
                 break;
-<<<<<<< HEAD
-=======
-
->>>>>>> 9a650c25c02e69db5192ef231b86db11b14b6eff
         }
     }
 }

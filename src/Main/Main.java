@@ -27,7 +27,7 @@ public class Main {
             sesion = generarNum();
             tipoU = proxy.buscar(usuario, password);
             Fachada f = Fachada.getInstance();
-            if (!f.iniciarSesion(usuario, password, sesion)) {
+            if (f.iniciarSesion(usuario, password, sesion) == 0) {
                 JOptionPane.showMessageDialog(null, "No existe ese usuario");
             } else {
                 do {
