@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="TallerPatronFacade">
+  <ClassDiagramComponents>
+    <Class name="Administrador" package="Clases" visibility="public" xPosition="253.0" yPosition="269.0">
+      <Fields>
+        <Field name="correoAdmin" type="String" visibility="private"/>
+        <Field name="passwordAdmin" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="crear" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="leer" returnType="String" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="actualizar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AdministradorAdapter" package="Clases" visibility="public" xPosition="802.0" yPosition="288.0">
+      <Fields>
+        <Field name="admin" type="Administrador" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Administrador" name="admin"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="adicionar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="consultar" returnType="String" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="BalotoDecorator" package="Clases" visibility="public" xPosition="3278.0" yPosition="991.0">
+      <Fields>
+        <Field name="noConfirmacion" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Component" name="pagoPSE"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Calle" package="Clases" visibility="public" xPosition="1070.0" yPosition="1526.0">
+      <Fields>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="origen" type="float[]" visibility="private"/>
+        <Field name="destino" type="float[]" visibility="private"/>
+        <Field name="distancia" type="float" visibility="private"/>
+        <Field name="tiempo" type="float" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getOrigen" returnType="float[]" visibility="public"/>
+        <Method name="setOrigen" returnType="void" visibility="public">
+          <Argument type="float[]" name="origen"/>
+        </Method>
+        <Method name="getDestino" returnType="float[]" visibility="public"/>
+        <Method name="setDestino" returnType="void" visibility="public">
+          <Argument type="float[]" name="destino"/>
+        </Method>
+        <Method name="getDistancia" returnType="float" visibility="public"/>
+        <Method name="setDistancia" returnType="void" visibility="private"/>
+        <Method name="getTiempo" returnType="float" visibility="public"/>
+        <Method name="setTiempo" returnType="void" visibility="private"/>
+        <Method name="mostrar" returnType="String" visibility="public"/>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Conductor" package="Clases" visibility="public" xPosition="1881.0" yPosition="156.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="adicionar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="consultar" returnType="String" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CreditoDecorator" package="Clases" visibility="public" xPosition="3044.0" yPosition="1562.0">
+      <Fields>
+        <Field name="numeroT" type="String" visibility="private"/>
+        <Field name="CVV" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Component" name="pago"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setNumeroT" returnType="void" visibility="public">
+          <Argument type="String" name="numeroT"/>
+        </Method>
+        <Method name="setCVV" returnType="void" visibility="public">
+          <Argument type="String" name="CVV"/>
+        </Method>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Pago" package="Clases" visibility="public" xPosition="2891.0" yPosition="1348.0">
+      <Fields>
+        <Field name="valor" type="String" visibility="package"/>
+        <Field name="IDPasajero" type="String" visibility="package"/>
+        <Field name="IDConductor" type="String" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PagoDecorator" package="Clases" visibility="public" isAbstract="true" xPosition="3247.0" yPosition="1218.0">
+      <Fields>
+        <Field name="pago" type="Component" visibility="protected"/>
+        <Field name="fecha" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Component" name="pago"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PagoEfectivo" package="Clases" visibility="public" xPosition="3551.0" yPosition="1236.0">
+      <Fields>
+        <Field name="moneda" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Component" name="pago"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PagoPSE" package="Clases" visibility="public" xPosition="3323.0" yPosition="1572.0">
+      <Fields>
+        <Field name="noCuentaP" type="String" visibility="private"/>
+        <Field name="claveCuenta" type="String" visibility="private"/>
+        <Field name="noCuentaD" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Component" name="pago"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="pagar" returnType="String" visibility="public"/>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Pasajero" package="Clases" visibility="public" xPosition="1313.0" yPosition="37.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="adicionar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="consultar" returnType="String" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Proxy" package="Clases" visibility="public" xPosition="697.0" yPosition="717.0">
+      <Fields>
+        <Field name="instance" type="Proxy" visibility="private" isStatic="true"/>
+        <Field name="listaUsuarios" type="ArrayList&lt;String[]&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getInstance" returnType="Proxy" visibility="public" isStatic="true"/>
+        <Method name="crearRegistro" returnType="void" visibility="public">
+          <Argument type="String" name="registro"/>
+        </Method>
+        <Method name="buscar" returnType="String" visibility="public">
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="llenarUsuarios" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="Reserva" package="Clases" visibility="public" xPosition="2832.0" yPosition="642.0">
+      <Fields>
+        <Field name="id" type="int" visibility="package"/>
+        <Field name="ruta" type="Ruta" visibility="package"/>
+        <Field name="pasajero" type="Usuario" visibility="package"/>
+        <Field name="cuposReservados" type="int" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="Ruta" name="ruta"/>
+          <Argument type="int" name="cuposReservados"/>
+          <Argument type="Usuario" name="pasajero"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setRuta" returnType="void" visibility="public">
+          <Argument type="Ruta" name="ruta"/>
+        </Method>
+        <Method name="setCuposReservados" returnType="void" visibility="public">
+          <Argument type="int" name="cuposReservados"/>
+        </Method>
+        <Method name="getRuta" returnType="Ruta" visibility="public"/>
+        <Method name="getCuposReservados" returnType="int" visibility="public"/>
+        <Method name="getPasajero" returnType="Usuario" visibility="public"/>
+        <Method name="setPasajero" returnType="void" visibility="public">
+          <Argument type="Pasajero" name="pasajero"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Ruta" package="Clases" visibility="public" xPosition="2214.0" yPosition="1056.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="origen" type="String" visibility="private"/>
+        <Field name="destino" type="String" visibility="private"/>
+        <Field name="hora" type="String" visibility="private"/>
+        <Field name="componentes" type="ArrayList&lt;Componente&gt;" visibility="private"/>
+        <Field name="fecha" type="Date" visibility="private"/>
+        <Field name="cupos" type="int" visibility="private"/>
+        <Field name="tarifa" type="int" visibility="private"/>
+        <Field name="creador" type="Usuario" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="origen"/>
+          <Argument type="String" name="destino"/>
+          <Argument type="String" name="hora"/>
+          <Argument type="Date" name="fecha"/>
+          <Argument type="int" name="cupos"/>
+          <Argument type="int" name="tarifa"/>
+          <Argument type="Usuario" name="creador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setHora" returnType="void" visibility="public">
+          <Argument type="String" name="hora"/>
+        </Method>
+        <Method name="getOrigen" returnType="String" visibility="public"/>
+        <Method name="setOrigen" returnType="void" visibility="public">
+          <Argument type="String" name="origen"/>
+        </Method>
+        <Method name="getDestino" returnType="String" visibility="public"/>
+        <Method name="setDestino" returnType="void" visibility="public">
+          <Argument type="String" name="destino"/>
+        </Method>
+        <Method name="setFecha" returnType="void" visibility="public">
+          <Argument type="Date" name="fecha"/>
+        </Method>
+        <Method name="setCupos" returnType="void" visibility="public">
+          <Argument type="int" name="cupos"/>
+        </Method>
+        <Method name="setTarifa" returnType="void" visibility="public">
+          <Argument type="int" name="tarifa"/>
+        </Method>
+        <Method name="getHora" returnType="String" visibility="public"/>
+        <Method name="getFecha" returnType="Date" visibility="public"/>
+        <Method name="getCupos" returnType="int" visibility="public"/>
+        <Method name="getTarifa" returnType="int" visibility="public"/>
+        <Method name="getCreador" returnType="Usuario" visibility="public"/>
+        <Method name="setCreador" returnType="void" visibility="public">
+          <Argument type="Conductor" name="creador"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="add" returnType="void" visibility="public">
+          <Argument type="Componente" name="c"/>
+        </Method>
+        <Method name="getComponentes" returnType="ArrayList&lt;Componente&gt;" visibility="public"/>
+        <Method name="mostrar" returnType="String" visibility="public"/>
+        <Method name="mostrarRuta" returnType="String" visibility="public"/>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Usuario" package="Clases" visibility="public" isAbstract="true" xPosition="1313.0" yPosition="288.0">
+      <Fields>
+        <Field name="correo" type="String" visibility="protected"/>
+        <Field name="password" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="adicionar" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="consultar" returnType="String" visibility="public" isAbstract="true">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificar" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public" isAbstract="true"/>
+        <Method name="getCorreo" returnType="String" visibility="public"/>
+        <Method name="setCorreo" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UsuarioFactory" package="Clases" visibility="public" xPosition="2073.0" yPosition="726.0">
+      <Fields>
+        <Field name="listaUsuarios" type="HashMap&lt;String, IUsuario&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="eliminarUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="crearUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="IUsuario" name="u"/>
+        </Method>
+        <Method name="mostrarUsuario" returnType="IUsuario" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificarUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="correoBuscado"/>
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Fachada" package="Facade" visibility="public" xPosition="1133.0" yPosition="737.0">
+      <Fields>
+        <Field name="rutas" type="ArrayList&lt;Ruta&gt;" visibility="private"/>
+        <Field name="reservas" type="ArrayList&lt;Reserva&gt;" visibility="private"/>
+        <Field name="instance" type="Fachada" visibility="private" isStatic="true"/>
+        <Field name="u" type="UsuarioFactory" visibility="private"/>
+        <Field name="sesion" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getInstance" returnType="Fachada" visibility="public" isStatic="true"/>
+        <Method name="crearRuta" returnType="void" visibility="public">
+          <Argument type="String" name="hora"/>
+          <Argument type="String" name="origen"/>
+          <Argument type="String" name="destino"/>
+          <Argument type="Date" name="fecha"/>
+          <Argument type="int" name="cupos"/>
+          <Argument type="int" name="tarifa"/>
+          <Argument type="Usuario" name="conductor"/>
+        </Method>
+        <Method name="mostrarRuta" returnType="String" visibility="public">
+          <Argument type="String" name="nombreDestino"/>
+          <Argument type="Date" name="fecha"/>
+          <Argument type="String" name="hora"/>
+        </Method>
+        <Method name="mostrarRutas" returnType="String" visibility="public"/>
+        <Method name="modificarRuta" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="hora"/>
+          <Argument type="Date" name="fecha"/>
+          <Argument type="int" name="cupos"/>
+          <Argument type="int" name="tarifa"/>
+        </Method>
+        <Method name="verificarRuta" returnType="int" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="eliminarRuta" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="crearCalle" returnType="void" visibility="public">
+          <Argument type="Ruta" name="r"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Method>
+        <Method name="mostrarCalle" returnType="String" visibility="public">
+          <Argument type="Ruta" name="r"/>
+        </Method>
+        <Method name="modificarCalle" returnType="void" visibility="public">
+          <Argument type="Ruta" name="r"/>
+          <Argument type="String" name="nombrebuscado"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Method>
+        <Method name="eliminarCalle" returnType="void" visibility="public">
+          <Argument type="Ruta" name="r"/>
+          <Argument type="String" name="nombrebuscado"/>
+        </Method>
+        <Method name="crearReserva" returnType="void" visibility="public">
+          <Argument type="int" name="cupos"/>
+          <Argument type="Ruta" name="ruta"/>
+          <Argument type="Usuario" name="pasajero"/>
+        </Method>
+        <Method name="mostrarReserva" returnType="String" visibility="public"/>
+        <Method name="modificarReserva" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="cupos"/>
+        </Method>
+        <Method name="eliminarReserva" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="verificarReserva" returnType="int" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="crearUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="tipoUsuario"/>
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="verificarCalle" returnType="int" visibility="public">
+          <Argument type="int" name="id1"/>
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="iniciarSesion" returnType="boolean" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+          <Argument type="int" name="sesion"/>
+        </Method>
+        <Method name="buscarUsuario" returnType="IUsuario" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="buscarRuta" returnType="Ruta" visibility="public">
+          <Argument type="String" name="hora"/>
+          <Argument type="Date" name="fecha"/>
+          <Argument type="int" name="cupos"/>
+          <Argument type="int" name="tarifa"/>
+        </Method>
+        <Method name="buscarRuta1" returnType="Ruta" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="menu" returnType="String" visibility="public">
+          <Argument type="String" name="tipoUsuario"/>
+        </Method>
+        <Method name="llamarMenu" returnType="void" visibility="public">
+          <Argument type="int" name="opcion"/>
+          <Argument type="String" name="tipoU"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="menuConductor" returnType="void" visibility="private">
+          <Argument type="int" name="opcion"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="menuPasajero" returnType="void" visibility="private">
+          <Argument type="int" name="opcion"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="menuAdministrador" returnType="void" visibility="private">
+          <Argument type="int" name="opcion"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Main" package="Main" visibility="public" xPosition="253.0" yPosition="1182.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="esPrimo" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="int" name="inputNum"/>
+        </Method>
+        <Method name="generarNum" returnType="int" visibility="private" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Interface name="Component" package="Interfaces" visibility="public" xPosition="2891.0" yPosition="1167.0">
+      <Methods>
+        <Method name="asignar" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;String&gt;" name="valores"/>
+        </Method>
+        <Method name="pagar" returnType="String" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Interface name="Componente" package="Interfaces" visibility="public" xPosition="1614.0" yPosition="1679.0">
+      <Methods>
+        <Method name="mostrar" returnType="String" visibility="public"/>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="float[]" name="origen"/>
+          <Argument type="float[]" name="destino"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="IMenu" package="Interfaces" visibility="public" xPosition="680.0" yPosition="1208.0">
+      <Methods>
+        <Method name="buscar" returnType="String" visibility="public">
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="IUsuario" package="Interfaces" visibility="public" xPosition="2281.0" yPosition="318.0">
+      <Methods>
+        <Method name="getCorreo" returnType="String" visibility="public"/>
+        <Method name="setCorreo" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="adicionar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="consultar" returnType="String" visibility="public">
+          <Argument type="String" name="correo"/>
+        </Method>
+        <Method name="modificar" returnType="void" visibility="public">
+          <Argument type="String" name="correo"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="" source="Clases.Proxy" target="Facade.Fachada" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.Usuario" target="Interfaces.IUsuario"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.PagoDecorator" target="Interfaces.Component"/>
+    <HasRelation name="Tiene" source="Clases.Reserva" target="Clases.Usuario" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Clases.Conductor" target="Clases.Usuario"/>
+    <IsRelation name="is" source="Clases.PagoEfectivo" target="Clases.PagoDecorator"/>
+    <HasRelation name="Tiene" source="Facade.Fachada" target="Clases.Ruta" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Facade.Fachada" target="Interfaces.IMenu"/>
+    <HasRelation name="Tiene" source="Facade.Fachada" target="Clases.UsuarioFactory" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Componente" source="Clases.PagoDecorator" target="Interfaces.Component" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Tiene" source="Clases.AdministradorAdapter" target="Clases.Administrador" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <UseRelation name="" source="Clases.Reserva" target="Clases.PagoDecorator" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Facade.Fachada" target="Interfaces.Component" sourceCardinality="1..1" targetCardinality="0..*"/>
+    <HasRelation name="Tiene" source="Facade.Fachada" target="Clases.Usuario" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Clases.CreditoDecorator" target="Clases.PagoDecorator"/>
+    <UseRelation name="Usa" source="Facade.Fachada" target="Interfaces.Componente" sourceCardinality="1..1" targetCardinality="0..*"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.Ruta" target="Interfaces.Componente"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.Pago" target="Interfaces.Component"/>
+    <HasRelation name="Tiene" source="Clases.Reserva" target="Clases.Ruta" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="" source="Main.Main" target="Interfaces.IMenu" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Tiene" source="Clases.Ruta" target="Clases.Usuario" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Clases.BalotoDecorator" target="Clases.PagoDecorator"/>
+    <HasRelation name="Realiza" source="Clases.Calle" target="Interfaces.Componente" type="Composition" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="Realiza" source="Clases.Ruta" target="Interfaces.Componente" type="Composition" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+    <IsRelation name="is" source="Clases.PagoPSE" target="Clases.PagoDecorator"/>
+    <HasRelation name="Tiene" source="Clases.UsuarioFactory" target="Interfaces.IUsuario" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.Proxy" target="Interfaces.IMenu"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Clases.Calle" target="Interfaces.Componente"/>
+    <IsRelation name="is" source="Clases.AdministradorAdapter" target="Clases.Usuario"/>
+    <UseRelation name="" source="Facade.Fachada" target="Interfaces.IUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Clases.Pasajero" target="Clases.Usuario"/>
+    <HasRelation name="Tiene" source="Facade.Fachada" target="Clases.Reserva" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

@@ -51,7 +51,8 @@ public class Fachada {
         u.crearUsuario("C", pasajero);
         Administrador a = new Administrador();
         Usuario admin = new AdministradorAdapter(a);
-        admin.adicionar("E", "F");
+        admin.setCorreo("E");
+        admin.setPassword("F");
         u.crearUsuario("E", admin);
     }
 
@@ -243,7 +244,8 @@ public class Fachada {
                 a.crear(correo, password);
                 Usuario admin = new AdministradorAdapter(a);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
-                admin.adicionar(correo, password);
+                admin.setCorreo(correo);
+                admin.setPassword(password);
                 u.crearUsuario(correo, admin);
                 JOptionPane.showMessageDialog(null, "Administrador Creado Correctamente");
                 break;
@@ -798,6 +800,7 @@ public class Fachada {
             case 4:
                 usuario = JOptionPane.showInputDialog("Ingrese el correo del usuario a eliminar");
                 u.eliminarUsuario(usuario);
+                break;
             case 0:
                 JOptionPane.showMessageDialog(null, "Hasta luego administrador");
                 break;
