@@ -35,8 +35,8 @@ public class Administrador {
     }
     
     public void crear(String correo, String password){
-        this.setCorreoAdmin(correo);
-        this.setPasswordAdmin(password);
+        this.passwordAdmin = password;
+        this.correoAdmin = correo;
     }
     
     public String leer(String correo){
